@@ -28,9 +28,6 @@ registry:
   # Specify the registry server, if you're not using Docker Hub
   server: us-docker.pkg.dev 
   username: _json_key_base64
-  # username: your-user
-
-  # Always use an access token rather than real password when possible.
   password:
     - KAMAL_REGISTRY_PASSWORD
 
@@ -79,6 +76,9 @@ asset_path: /rails/public/assets
 # Configure the image builder.
 builder:
   arch: amd64
+  remote: ssh://docker@34.61.81.101
+  cache:
+    type: registry
 
   # # Build image via remote server (useful for faster amd64 builds on arm64 computers)
   # remote: ssh://docker@docker-builder-server
