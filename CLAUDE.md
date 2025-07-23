@@ -141,6 +141,31 @@ This appears to be a newly generated Rails application with no custom models, co
   ```
 - **Database constraints**: Match model validations with database constraints when critical
 - **Implementation plans**: Always verify syntax against Rails 8.0.2 documentation
+- **Code readability**: Add blank lines after guard clauses for better readability
+  ```ruby
+  # GOOD - blank line after guard clause
+  def process(value)
+    return nil if value.blank?
+
+    value.upcase
+  end
+  
+  # BAD - no separation
+  def process(value)
+    return nil if value.blank?
+    value.upcase
+  end
+  ```
+- **Constants over magic numbers**: Define constants for magic numbers
+  ```ruby
+  # GOOD
+  SATURDAY = 6
+  SUNDAY = 0
+  WEEKEND = [ SATURDAY, SUNDAY ].freeze
+  
+  # BAD
+  [ 0, 6 ].include?(date.wday)
+  ```
 
 ### Pre-Commit Checklist
 Before committing Rails changes:
