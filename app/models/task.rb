@@ -29,4 +29,8 @@ class Task < ApplicationRecord
   def completed_on?(date)
     task_completions.exists?(completed_on: date)
   end
+
+  def task_completion_for_day(date)
+    task_completions.find_by(completed_on: date)
+  end
 end

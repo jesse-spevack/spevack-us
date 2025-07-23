@@ -56,9 +56,9 @@ Get a functional chore tracker on iPad as quickly as possible.
 
 - [x] **1.1 Create database migrations**
   - **Files**: 
-    - `db/migrate/001_create_children.rb`
-    - `db/migrate/002_create_tasks.rb`
-    - `db/migrate/003_create_task_completions.rb`
+    - `db/migrate/20250723123038_create_children.rb`
+    - `db/migrate/20250723123421_create_tasks.rb`
+    - `db/migrate/20250723123432_create_task_completions.rb`
   - **Implementation Notes**:
     ```ruby
     # 001_create_children.rb
@@ -91,12 +91,13 @@ Get a functional chore tracker on iPad as quickly as possible.
     add_index :task_completions, :completed_on
     ```
 
-- [ ] **1.2 Create models with associations**
+- [x] **1.2 Create models with associations**
   - **Files**: 
     - `app/models/child.rb`
     - `app/models/task.rb`
     - `app/models/task_completion.rb`
-  - **Implementation Notes**:
+  - **Implementation Notes**: Models created with proper Rails 7+ enum syntax and corrected association pattern
+  - **Original Plan**:
     ```ruby
     # app/models/child.rb
     class Child < ApplicationRecord
@@ -114,7 +115,7 @@ Get a functional chore tracker on iPad as quickly as possible.
       validates :name, presence: true
       validates :frequency, inclusion: { in: %w[daily weekend specific_days] }
       
-      enum time_of_day: { morning: 0, afternoon: 1, evening: 2 }
+      enum :time_of_day, { morning: 0, afternoon: 1, evening: 2 }
       
       scope :ordered, -> { order(:time_of_day, :name) }
       
@@ -123,7 +124,7 @@ Get a functional chore tracker on iPad as quickly as possible.
         when 'daily'
           true
         when 'weekend'
-          [0, 6].include?(date.wday)  # Sunday = 0, Saturday = 6
+          WEEKEND.include?(date.wday)  # Sunday = 0, Saturday = 6
         when 'specific_days'
           return false if specific_days.blank?
           specific_days.split(',').map(&:to_i).include?(date.wday)
@@ -144,7 +145,7 @@ Get a functional chore tracker on iPad as quickly as possible.
     end
     ```
 
-- [ ] **1.3 Create basic routes and controllers**
+- [x] **1.3 Create basic routes and controllers**
   - **Files**: 
     - `config/routes.rb`
     - `app/controllers/tasks_controller.rb`
@@ -194,7 +195,7 @@ Get a functional chore tracker on iPad as quickly as possible.
     end
     ```
 
-- [ ] **1.4 Create minimal daily view**
+- [x] **1.4 Create minimal daily view**
   - **Files**: 
     - `app/views/tasks/daily.html.erb`
     - `app/views/layouts/application.html.erb` (updates)
@@ -240,7 +241,7 @@ Get a functional chore tracker on iPad as quickly as possible.
     </div>
     ```
 
-- [ ] **1.5 Add seed data for testing**
+- [x] **1.5 Add seed data for testing**
   - **Files**: `db/seeds.rb`
   - **Implementation Notes**:
     ```ruby

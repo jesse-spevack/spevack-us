@@ -114,6 +114,66 @@ This appears to be a newly generated Rails application with no custom models, co
 - Run linting before committing: `bundle exec rubocop`
 
 ### Rails-Specific Guidelines
+- **RESTful architecture**: Always use RESTful routes and controllers
+  ```ruby
+  # GOOD - RESTful routes
+  resources :tasks, only: [:index] do
+    resources :task_completions, only: [:create, :destroy]
+  end
+  
+  # BAD - custom action routes
+  resources :tasks do
+    member { post :toggle }
+  end
+  ```
+- **Controller organization**: Keep controllers thin, move logic to models and before_actions
+  ```ruby
+  # GOOD - thin controller with before_actions
+  class TasksController < ApplicationController
+    before_action :set_child
+    before_action :set_date
+    
+    def index
+      @tasks = @child.active_tasks
+    end
+    
+    private
+    
+    def set_child
+      @child = Child.first
+    end
+  end
+  
+  # BAD - fat controller with inline logic
+  class TasksController < ApplicationController
+    def index
+      @child = Child.first || Child.create!(name: "Test")
+      @date = params[:date] ? Date.parse(params[:date]) : Date.current
+      @tasks = @child.active_tasks.ordered
+    end
+  end
+  ```
+- **Model methods**: Extract complex queries and logic to model methods
+  ```ruby
+  # GOOD - logic in model
+  class Task < ApplicationRecord
+    def task_completion_for_day(date)
+      task_completions.find_by(completed_on: date)
+    end
+  end
+  
+  # BAD - logic in controller
+  completion = task.task_completions.find_by(completed_on: date)
+  ```
+- **Association scopes**: Include commonly used scopes in associations
+  ```ruby
+  # GOOD - ordered scope included in association
+  has_many :active_tasks, -> { where(active: true).ordered }, class_name: 'Task'
+  
+  # BAD - calling scope separately
+  has_many :active_tasks, -> { where(active: true) }, class_name: 'Task'
+  # Then calling: @child.active_tasks.ordered
+  ```
 - **Enum syntax**: Use Rails 7+ syntax: `enum :attribute_name, { value1: 0, value2: 1 }`
 - **Associations with scopes**: Separate filtered associations from base associations
   ```ruby
