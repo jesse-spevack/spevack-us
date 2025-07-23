@@ -53,3 +53,48 @@ This is a Ruby on Rails 8.0.2 application called ChoreTracker. It's a fresh Rail
 
 ### Current State
 This appears to be a newly generated Rails application with no custom models, controllers, or routes defined yet. The application uses modern Rails conventions with Hotwire for interactivity and Tailwind for styling.
+
+## Development Philosophy
+
+### MVP/Steel Thread First
+- Always ask: "What gets working software on the device fastest?"
+- Hardcode before abstracting (e.g., hardcode first child before building selection)
+- Console commands are fine for admin tasks - don't build UI until needed
+
+### Explicit Non-Requirements
+- No gamification, points, or rewards
+- No character/behavioral tracking beyond completion
+- No multi-family support
+- No authentication beyond simple cookies
+
+### UI/UX Principles
+- Server-side rendering preferred over complex JavaScript
+- One-click actions only (no multi-step flows)
+- Clean, minimal design - think Helvetica and black borders
+- Touch targets minimum 44px for iPad
+
+### Development Approach
+- Direct ActiveRecord use in console preferred over complex admin UI
+- Create working implementation plan before writing code
+- Include concrete code examples in plans
+- T-shirt sizing over time estimates
+
+### Common Patterns
+- Tasks belong to one child (no sharing)
+- Soft delete with `active` flag for schedule changes
+- Time-based ordering (morning/afternoon/evening)
+
+### Testing Philosophy
+- Focus on happy path and core user journeys
+- Skip edge case testing in early phases
+- Manual iPad testing over automated browser tests
+
+### Console Task Creation
+- Rake tasks or Rails console for admin operations
+- Document common commands in README
+- REPL-style interfaces only if significantly better than direct commands
+
+### Feature Prioritization
+- Daily task view → Weekly review → Task creation → Themes
+- Beautiful defaults before customization
+- Working on iPad is the primary success metric
