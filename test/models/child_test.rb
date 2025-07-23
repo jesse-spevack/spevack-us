@@ -28,7 +28,7 @@ class ChildTest < ActiveSupport::TestCase
     eddie = children(:eddie)
     active_tasks_count = eddie.active_tasks.count
     total_tasks_count = eddie.tasks.count
-    
+
     assert_equal 3, active_tasks_count
     assert_equal 4, total_tasks_count
   end
@@ -36,7 +36,7 @@ class ChildTest < ActiveSupport::TestCase
   def test_has_task_completions_through_tasks
     eddie = children(:eddie)
     completions = eddie.task_completions
-    
+
     assert_equal 3, completions.count
     assert completions.all? { |tc| tc.task.child_id == eddie.id }
   end
@@ -44,9 +44,9 @@ class ChildTest < ActiveSupport::TestCase
   def test_destroying_child_destroys_tasks
     eddie = children(:eddie)
     task_ids = eddie.tasks.pluck(:id)
-    
+
     eddie.destroy
-    
+
     assert task_ids.all? { |id| Task.find_by(id: id).nil? }
   end
 end

@@ -27,7 +27,7 @@ class TaskCompletionTest < ActiveSupport::TestCase
       task: existing.task,
       completed_on: existing.completed_on
     )
-    
+
     assert_not duplicate.valid?
     assert_includes duplicate.errors[:task_id], "has already been taken"
   end
@@ -42,7 +42,7 @@ class TaskCompletionTest < ActiveSupport::TestCase
       task: task,
       completed_on: Date.current
     )
-    
+
     assert today.valid?
   end
 
@@ -52,7 +52,7 @@ class TaskCompletionTest < ActiveSupport::TestCase
       task: tasks(:clean_room),
       completed_on: completion1.completed_on
     )
-    
+
     assert completion2.valid?
   end
 

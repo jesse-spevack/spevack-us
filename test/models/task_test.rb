@@ -32,7 +32,7 @@ class TaskTest < ActiveSupport::TestCase
     task = tasks(:make_bed)
     assert_equal "morning", task.time_of_day
     assert task.morning?
-    
+
     task.afternoon!
     assert task.afternoon?
   end
@@ -40,7 +40,7 @@ class TaskTest < ActiveSupport::TestCase
   def test_ordered_scope_sorts_by_time_then_name
     eddie = children(:eddie)
     ordered_tasks = eddie.tasks.ordered
-    
+
     assert_equal "Make bed", ordered_tasks.first.name
     assert_equal "morning", ordered_tasks.first.time_of_day
   end
@@ -49,7 +49,7 @@ class TaskTest < ActiveSupport::TestCase
     task = tasks(:make_bed)
     monday = Date.new(2025, 1, 6)
     sunday = Date.new(2025, 1, 5)
-    
+
     assert task.due_on?(monday)
     assert task.due_on?(sunday)
   end
@@ -59,7 +59,7 @@ class TaskTest < ActiveSupport::TestCase
     monday = Date.new(2025, 1, 6)
     saturday = Date.new(2025, 1, 4)
     sunday = Date.new(2025, 1, 5)
-    
+
     assert_not task.due_on?(monday)
     assert task.due_on?(saturday)
     assert task.due_on?(sunday)
@@ -70,7 +70,7 @@ class TaskTest < ActiveSupport::TestCase
     monday = Date.new(2025, 1, 6)    # wday = 1
     tuesday = Date.new(2025, 1, 7)   # wday = 2
     wednesday = Date.new(2025, 1, 8) # wday = 3
-    
+
     assert task.due_on?(monday)
     assert_not task.due_on?(tuesday)
     assert task.due_on?(wednesday)
@@ -79,7 +79,7 @@ class TaskTest < ActiveSupport::TestCase
   def test_specific_days_task_not_due_when_days_blank
     task = Task.new(frequency: "specific_days", specific_days: "")
     date = Date.current
-    
+
     assert_not task.due_on?(date)
   end
 
@@ -96,9 +96,9 @@ class TaskTest < ActiveSupport::TestCase
   def test_destroying_task_destroys_completions
     task = tasks(:make_bed)
     completion_ids = task.task_completions.pluck(:id)
-    
+
     task.destroy
-    
+
     assert completion_ids.all? { |id| TaskCompletion.find_by(id: id).nil? }
   end
 end

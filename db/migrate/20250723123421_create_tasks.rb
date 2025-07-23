@@ -9,7 +9,7 @@ class CreateTasks < ActiveRecord::Migration[8.0]
       t.boolean :active, default: true
       t.timestamps
     end
-    add_index :tasks, [:child_id, :active]
+    add_index :tasks, [ :child_id, :active ]
     add_index :tasks, :time_of_day
   end
 end

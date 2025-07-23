@@ -106,7 +106,46 @@ This appears to be a newly generated Rails application with no custom models, co
 - Run tests before committing (when tests exist)
 
 ### Development Best Practices
+- Create feature branch BEFORE starting any code changes
+- Write basic happy path unit tests when creating models/controllers
 - Verify database changes after migrations (check schema.rb, run migrate:status)
 - Note discrepancies between plans and actual implementation (e.g., migration filenames)
-- Run rails commands to verify work (e.g., `rails console` to check models after creation)
 - Keep implementation plan updated with actual file paths and any deviations
+- Run linting before committing: `bundle exec rubocop`
+
+### Rails-Specific Guidelines
+- **Enum syntax**: Use Rails 7+ syntax: `enum :attribute_name, { value1: 0, value2: 1 }`
+- **Associations with scopes**: Separate filtered associations from base associations
+  ```ruby
+  # GOOD - allows proper cascading deletes
+  has_many :tasks, dependent: :destroy
+  has_many :active_tasks, -> { where(active: true) }, class_name: 'Task'
+  
+  # BAD - orphans inactive records
+  has_many :tasks, -> { where(active: true) }, dependent: :destroy
+  ```
+- **Test-driven development**: Write basic happy path tests for models and controllers
+  ```ruby
+  # Basic happy path test example
+  def test_valid_model_with_required_attributes
+    model = Model.new(required_field: "value")
+    assert model.valid?
+  end
+  ```
+- **Console verification**: Use `rails console` to experiment and verify behavior
+  ```ruby
+  # Console for experimentation
+  c = Child.create!(name: "Test")
+  t = c.tasks.create!(name: "Test task", frequency: "daily")
+  t.completed_on?(Date.current)  # Test methods work
+  ```
+- **Database constraints**: Match model validations with database constraints when critical
+- **Implementation plans**: Always verify syntax against Rails 8.0.2 documentation
+
+### Pre-Commit Checklist
+Before committing Rails changes:
+1. Run `rails db:migrate:status` to verify migration state
+2. Run `rails test` for affected models/controllers
+3. Run `bundle exec rubocop` to check code style
+4. Check `db/schema.rb` reflects expected changes
+5. Verify no deprecation warnings in server/console output

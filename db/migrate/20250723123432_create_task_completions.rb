@@ -5,7 +5,7 @@ class CreateTaskCompletions < ActiveRecord::Migration[8.0]
       t.date :completed_on, null: false
       t.timestamps
     end
-    add_index :task_completions, [:task_id, :completed_on], unique: true
+    add_index :task_completions, [ :task_id, :completed_on ], unique: true
     add_index :task_completions, :completed_on
   end
 end
