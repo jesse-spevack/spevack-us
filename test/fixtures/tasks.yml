@@ -1,0 +1,35 @@
+make_bed:
+  child: eddie
+  name: Make bed
+  time_of_day: morning
+  frequency: daily
+  active: true
+
+take_out_trash:
+  child: eddie
+  name: Take out trash
+  time_of_day: afternoon
+  frequency: specific_days
+  specific_days: "1,3,5"
+  active: true
+
+clean_room:
+  child: eddie
+  name: Clean room
+  time_of_day: afternoon
+  frequency: weekend
+  active: true
+
+feed_cat:
+  child: audrey
+  name: Feed cat
+  time_of_day: morning
+  frequency: daily
+  active: true
+
+inactive_task:
+  child: eddie
+  name: Old task
+  time_of_day: evening
+  frequency: daily
+  active: false
