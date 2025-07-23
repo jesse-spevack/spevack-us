@@ -24,8 +24,4 @@ class TaskCompletionsController < ApplicationController
   def set_task
     @task = Task.find(params[:task_id])
   end
-
-  def set_date
-    @date = Date.parse(params[:date])
-  end
 end

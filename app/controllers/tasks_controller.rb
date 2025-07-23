@@ -13,10 +13,6 @@ class TasksController < ApplicationController
     @child = Child.first
   end
 
-  def set_date
-    @date = params[:date] ? Date.parse(params[:date]) : Date.current
-  end
-
   def set_is_today
     @is_today = @date == Date.current
   end
