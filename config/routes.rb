@@ -1,15 +1,11 @@
 Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
-  root "tasks#daily"
+  root "tasks#index"
 
-  resources :tasks, only: [] do
-    member do
-      post :toggle
-    end
+  resources :tasks, only: [ :index ] do
+    resources :task_completions, only: [ :create, :destroy ]
   end
-
-  get "daily(/:date)", to: "tasks#daily", as: :daily_tasks
 
   # Future phases
   # resources :children, only: [:index]

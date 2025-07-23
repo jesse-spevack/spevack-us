@@ -49,4 +49,12 @@ class ChildTest < ActiveSupport::TestCase
 
     assert task_ids.all? { |id| Task.find_by(id: id).nil? }
   end
+
+  def test_active_tasks_are_ordered
+    eddie = children(:eddie)
+    active_tasks = eddie.active_tasks
+
+    task_names = active_tasks.map(&:name)
+    assert_equal [ "Make bed", "Clean room", "Take out trash" ], task_names
+  end
 end

@@ -101,4 +101,20 @@ class TaskTest < ActiveSupport::TestCase
 
     assert completion_ids.all? { |id| TaskCompletion.find_by(id: id).nil? }
   end
+
+  def test_task_completion_for_day_returns_completion_when_exists
+    task = tasks(:make_bed)
+    completion = task.task_completion_for_day(Date.current)
+
+    assert_not_nil completion
+    assert_equal task, completion.task
+    assert_equal Date.current, completion.completed_on
+  end
+
+  def test_task_completion_for_day_returns_nil_when_not_exists
+    task = tasks(:clean_room)
+    completion = task.task_completion_for_day(Date.current)
+
+    assert_nil completion
+  end
 end

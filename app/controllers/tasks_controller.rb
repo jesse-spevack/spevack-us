@@ -1,24 +1,23 @@
 class TasksController < ApplicationController
-  def daily
-    # Hardcode first child for Phase 1
-    @child = Child.first || Child.create!(name: "Test Child")
-    @date = params[:date] ? Date.parse(params[:date]) : Date.current
-    @tasks = @child.active_tasks.ordered
-    @is_today = @date == Date.current
+  before_action :set_child
+  before_action :set_date
+  before_action :set_is_today
+
+  def index
+    @tasks = @child.active_tasks
   end
 
-  def toggle
-    task = Task.find(params[:id])
-    date = Date.parse(params[:date])
+  private
 
-    completion = task.task_completions.find_by(completed_on: date)
+  def set_child
+    @child = Child.first
+  end
 
-    if completion
-      completion.destroy!
-    else
-      task.task_completions.create!(completed_on: date)
-    end
+  def set_date
+    @date = params[:date] ? Date.parse(params[:date]) : Date.current
+  end
 
-    redirect_to daily_tasks_path(date: date)
+  def set_is_today
+    @is_today = @date == Date.current
   end
 end
