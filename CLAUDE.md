@@ -98,3 +98,15 @@ This appears to be a newly generated Rails application with no custom models, co
 - Daily task view → Weekly review → Task creation → Themes
 - Beautiful defaults before customization
 - Working on iPad is the primary success metric
+
+### Git Workflow
+- Create feature branches at the START of implementing a phase/feature
+- Use descriptive branch names like `feature/phase-1-minimum-working-app`
+- Commit after each completed sub-task with descriptive messages
+- Run tests before committing (when tests exist)
+
+### Development Best Practices
+- Verify database changes after migrations (check schema.rb, run migrate:status)
+- Note discrepancies between plans and actual implementation (e.g., migration filenames)
+- Run rails commands to verify work (e.g., `rails console` to check models after creation)
+- Keep implementation plan updated with actual file paths and any deviations
