@@ -1,0 +1,11 @@
+bed_completed_today:
+  task: make_bed
+  completed_on: <%= Date.current %>
+
+bed_completed_yesterday:
+  task: make_bed
+  completed_on: <%= Date.current - 1.day %>
+
+trash_completed:
+  task: take_out_trash
+  completed_on: <%= Date.current %>

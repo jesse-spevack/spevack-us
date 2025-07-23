@@ -54,7 +54,7 @@ Get a functional chore tracker on iPad as quickly as possible.
 
 #### Tasks
 
-- [ ] **1.1 Create database migrations**
+- [x] **1.1 Create database migrations**
   - **Files**: 
     - `db/migrate/001_create_children.rb`
     - `db/migrate/002_create_tasks.rb`
@@ -766,3 +766,10 @@ task.update!(active: false)
 2. Test on actual iPad device early
 3. Get family feedback on Phase 1 before continuing
 4. Iterate based on real usage patterns
+
+## Relevant Files
+
+### Database Migrations
+- `db/migrate/20250723123038_create_children.rb` - Creates children table with name and theme fields
+- `db/migrate/20250723123421_create_tasks.rb` - Creates tasks table with time_of_day, frequency, and child association
+- `db/migrate/20250723123432_create_task_completions.rb` - Creates task_completions table for tracking completed tasks
