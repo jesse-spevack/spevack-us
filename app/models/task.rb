@@ -1,4 +1,8 @@
 class Task < ApplicationRecord
+  SUNDAY = 0
+  SATURDAY = 6
+  WEEKEND = [ SATURDAY, SUNDAY ].freeze
+
   belongs_to :child
   has_many :task_completions, dependent: :destroy
 
@@ -14,9 +18,10 @@ class Task < ApplicationRecord
     when "daily"
       true
     when "weekend"
-      [ 0, 6 ].include?(date.wday)  # Sunday = 0, Saturday = 6
+      WEEKEND.include?(date.wday)
     when "specific_days"
       return false if specific_days.blank?
+
       specific_days.split(",").map(&:to_i).include?(date.wday)
     end
   end
