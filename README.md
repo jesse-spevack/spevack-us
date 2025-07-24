@@ -101,6 +101,37 @@ Task.create!(
 )
 ```
 
+## Production Deployment
+
+### Database Setup
+
+After deploying to production, initialize the database with real family data:
+
+```bash
+# Run migrations
+bin/rails db:migrate
+
+# Setup children and tasks (safe to run multiple times)
+bin/rails setup:production
+```
+
+The production setup task will create:
+- **Audrey**: 21 tasks (6 morning, 6 afternoon, 8 evening, 1 weekend)
+- **Eddie**: 20 tasks (6 morning, 5 afternoon, 8 evening, 1 weekend)
+
+Real task examples:
+- Morning: wake up, eat breakfast, get dressed, brush teeth/hair, pack bag, get in car
+- Afternoon: unpack, eat snack, clean table, complete math HW, self-study
+- Evening: set table, take vitamins, clear table, pack lunch, complete reading HW, get PJs on, brush teeth, shower
+- Weekend: run light load of laundry
+
+### Deployment Notes
+
+- The setup task uses `find_or_create_by` to prevent duplicate children
+- Existing tasks are cleared on each run to ensure clean state
+- All tasks are set to `active: true` and ready for immediate use
+- Weekend tasks are scheduled for Saturday/Sunday afternoons
+
 ## Architecture
 
 - **Database**: SQLite3 with 3 tables (children, tasks, task_completions)
