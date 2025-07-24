@@ -1,17 +1,13 @@
 Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
-  root "children#index"
+  root "tasks#index"
 
   resources :tasks, only: [ :index ] do
     resources :task_completions, only: [ :create, :destroy ]
   end
 
-  resources :children, only: [ :index ] do
-    member do
-      post :select, as: :select
-    end
-  end
+  resource :session, only: [ :new, :create, :destroy ]
 
   # Future phases
   # get "weekly_review/:child_id", to: "reviews#weekly", as: :weekly_review

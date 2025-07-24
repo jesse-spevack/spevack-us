@@ -3,7 +3,7 @@ require "test_helper"
 class ApplicationControllerTest < ActionDispatch::IntegrationTest
   def setup
     # Select a child for tests that require child authentication
-    post select_child_path(children(:eddie))
+    post session_path, params: { id: children(:eddie).id }
   end
 
   def test_set_date_with_date_param
@@ -18,9 +18,9 @@ class ApplicationControllerTest < ActionDispatch::IntegrationTest
 end
 
 class ApplicationControllerRedirectTest < ActionDispatch::IntegrationTest
-  def test_redirects_to_children_when_no_child_selected
-    # Test without setting a child cookie first
+  def test_redirects_to_new_session_when_no_child_selected
+    # Test without setting a child session first
     get tasks_path
-    assert_redirected_to children_path
+    assert_redirected_to new_session_path
   end
 end

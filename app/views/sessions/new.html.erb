@@ -3,11 +3,11 @@
     <h1 class="text-4xl font-bold mb-8">Who are you?</h1>
     <div class="flex gap-8 justify-center">
       <% @children.each do |child| %>
-        <%= link_to select_child_path(child), 
+        <%= button_to child.name, 
+            session_path,
+            params: { id: child.id },
             method: :post,
-            class: "block p-12 border-4 border-black text-2xl font-semibold hover:bg-gray-100" do %>
-          <%= child.name %>
-        <% end %>
+            class: "block p-12 border-4 border-black text-2xl font-semibold hover:bg-gray-100" %>
       <% end %>
     </div>
   </div>

@@ -9,10 +9,10 @@ class ApplicationController < ActionController::Base
   end
 
   def current_child
-    @current_child ||= Child.find_by(id: cookies[:child_id])
+    @current_child ||= Child.find_by(id: session[:child_id])
   end
 
   def require_child
-    redirect_to children_path unless current_child
+    redirect_to new_session_path unless current_child
   end
 end
