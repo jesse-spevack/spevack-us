@@ -10,32 +10,32 @@
   <section class="mb-8 p-6 border-2 border-black">
     <h3 class="text-lg font-semibold mb-4">Overview</h3>
     <div class="space-y-2 text-lg">
-      <p>Tasks Assigned: <strong><%= @summary[:total_expected] %></strong></p>
-      <p>Tasks Completed: <strong><%= @summary[:total_completed] %></strong></p>
-      <p>Completion Rate: <strong><%= @summary[:overall_percentage] %>%</strong></p>
+      <p>Tasks Assigned: <strong><%= @summary.total_expected %></strong></p>
+      <p>Tasks Completed: <strong><%= @summary.total_completed %></strong></p>
+      <p>Completion Rate: <strong><%= @summary.overall_percentage %>%</strong></p>
     </div>
   </section>
   
-  <% if @summary[:perfect_tasks].any? %>
+  <% if @summary.perfect_tasks.any? %>
     <section class="mb-8">
       <h3 class="text-lg font-semibold mb-4">Perfectly Done (100%)</h3>
       <ul class="space-y-1">
-        <% @summary[:perfect_tasks].each do |task_info| %>
-          <li class="text-lg">✓ <%= task_info[:task].name.capitalize %></li>
+        <% @summary.perfect_tasks.each do |task_detail| %>
+          <li class="text-lg">✓ <%= task_detail.task.name.capitalize %></li>
         <% end %>
       </ul>
     </section>
   <% end %>
   
-  <% if @summary[:incomplete_tasks].any? %>
+  <% if @summary.incomplete_tasks.any? %>
     <section class="mb-8">
       <h3 class="text-lg font-semibold mb-4">Needs Attention</h3>
       <ul class="space-y-2">
-        <% @summary[:incomplete_tasks].each do |task_info| %>
+        <% @summary.incomplete_tasks.each do |task_detail| %>
           <li class="text-lg">
-            <%= task_info[:task].name.capitalize %>
+            <%= task_detail.task.name.capitalize %>
             <span class="text-gray-600">
-              (<%= task_info[:completed] %> of <%= task_info[:expected] %> - <%= task_info[:percentage] %>%)
+              (<%= task_detail.completed %> of <%= task_detail.expected %> - <%= task_detail.percentage %>%)
             </span>
           </li>
         <% end %>

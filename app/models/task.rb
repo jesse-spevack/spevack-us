@@ -33,4 +33,9 @@ class Task < ApplicationRecord
   def task_completion_for_day(date)
     task_completions.find_by(completed_on: date)
   end
+
+  def dates_for_week(week_start)
+    week_end = week_start.end_of_week
+    (week_start..week_end).select { |date| due_on?(date) }
+  end
 end
