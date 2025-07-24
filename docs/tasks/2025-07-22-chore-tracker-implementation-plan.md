@@ -343,11 +343,11 @@ Add child selection, improve navigation, and polish the visual design.
     end
     ```
 
-- [ ] **2.3 Add "Today" button and improve navigation**
+- [x] **2.3 Add "Today" button and improve navigation**
   - **Files**: Update `app/views/tasks/daily.html.erb`
   - **Implementation Notes**: Add conditional "Today" link that only shows when not on current date
 
-- [ ] **2.4 Implement clean default theme**
+- [x] **2.4 Implement clean default theme**
   - **Files**: 
     - `app/assets/stylesheets/application.tailwind.css`
   - **Implementation Notes**:
@@ -385,9 +385,18 @@ Add child selection, improve navigation, and polish the visual design.
     }
     ```
 
-- [ ] **2.5 Add Turbo for seamless interactions**
-  - **Files**: Update controllers and views for Turbo
-  - **Implementation Notes**: Convert form submissions to Turbo frames to avoid full page reloads
+- [x] **2.5 Add Turbo for seamless interactions**
+  - **Files**: 
+    - `app/views/tasks/index.html.erb` (updated to use Turbo frame)
+    - `app/views/tasks/_tasks_frame.html.erb` (new partial)
+    - `app/controllers/task_completions_controller.rb` (updated for Turbo responses)
+  - **Implementation Notes**: 
+    - Wrapped task list in `turbo_frame_tag "tasks"` for seamless updates
+    - Updated TaskCompletionsController to respond with `turbo_stream` format
+    - Extracted tasks frame content into reusable `_tasks_frame.html.erb` partial
+    - Added `render_tasks_frame` method to handle Turbo responses
+    - Maintains fallback to HTML redirects for non-Turbo requests
+    - Forms now submit without full page reloads, providing smooth user experience
 
 #### Testing Scenarios
 - Child selection persists across page reloads
@@ -778,11 +787,12 @@ task.update!(active: false)
 ### Controllers
 - `app/controllers/application_controller.rb` - Base controller with shared set_date method and cookie-based child authentication
 - `app/controllers/tasks_controller.rb` - Handles daily task viewing with RESTful index action and child requirement
-- `app/controllers/task_completions_controller.rb` - Manages task completion create/destroy actions with child requirement
+- `app/controllers/task_completions_controller.rb` - Manages task completion create/destroy actions with child requirement and Turbo stream responses
 - `app/controllers/children_controller.rb` - Handles child selection screen and cookie-based selection persistence
 
 ### Views
-- `app/views/tasks/index.html.erb` - Daily task view with time-based sections and completion forms
+- `app/views/tasks/index.html.erb` - Daily task view with time-based sections and completion forms, wrapped in Turbo frames
+- `app/views/tasks/_tasks_frame.html.erb` - Reusable partial containing the task list Turbo frame for seamless updates
 - `app/views/children/index.html.erb` - Child selection screen with large touch-friendly buttons
 
 ### Routes
