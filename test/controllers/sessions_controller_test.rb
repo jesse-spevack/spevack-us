@@ -26,4 +26,20 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_session_path
     assert_nil session[:child_id]
   end
+
+  def test_destroy_from_tasks_page_flow
+    # Select a child and go to tasks
+    post session_path, params: { id: children(:eddie).id }
+    get tasks_path
+    assert_response :success
+
+    # Use the switch child button
+    delete session_path
+    assert_redirected_to new_session_path
+    follow_redirect!
+
+    # Should be back at child selection
+    assert_select "h1", "Who are you?"
+    assert_nil session[:child_id]
+  end
 end

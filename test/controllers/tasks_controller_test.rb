@@ -48,6 +48,21 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
       assert_not elements.first["style"].include?("visibility: hidden")
     end
   end
+
+  def test_shows_current_child_name
+    get tasks_path
+    assert_response :success
+    assert_select "span", text: "Eddie"
+  end
+
+  def test_shows_switch_child_button
+    get tasks_path
+    assert_response :success
+    assert_select "form[action=?][method=?]", session_path, "post" do
+      assert_select "input[name=?][value=?]", "_method", "delete"
+      assert_select "button", text: "Switch Child"
+    end
+  end
 end
 
 class TasksControllerRedirectTest < ActionDispatch::IntegrationTest
