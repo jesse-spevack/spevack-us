@@ -5,7 +5,7 @@ class WeeklySummaryResultTest < ActiveSupport::TestCase
     @task = tasks(:make_bed)
     @perfect_detail = TaskDetail.new(task: @task, expected: 5, completed: 5, missing_dates: [])
     @incomplete_detail = TaskDetail.new(task: @task, expected: 5, completed: 3, missing_dates: [])
-    @task_details = [@perfect_detail, @incomplete_detail]
+    @task_details = [ @perfect_detail, @incomplete_detail ]
   end
 
   def test_overall_percentage_calculation
@@ -14,7 +14,7 @@ class WeeklySummaryResultTest < ActiveSupport::TestCase
       total_completed: 8,
       task_details: @task_details
     )
-    
+
     assert_equal 80, result.overall_percentage
   end
 
@@ -24,7 +24,7 @@ class WeeklySummaryResultTest < ActiveSupport::TestCase
       total_completed: 0,
       task_details: []
     )
-    
+
     assert_equal 100, result.overall_percentage
   end
 
@@ -34,7 +34,7 @@ class WeeklySummaryResultTest < ActiveSupport::TestCase
       total_completed: 8,
       task_details: @task_details
     )
-    
+
     perfect_tasks = result.perfect_tasks
     assert_equal 1, perfect_tasks.count
     assert_equal @perfect_detail, perfect_tasks.first
@@ -44,13 +44,13 @@ class WeeklySummaryResultTest < ActiveSupport::TestCase
     task2 = tasks(:clean_room)
     high_incomplete = TaskDetail.new(task: task2, expected: 10, completed: 8, missing_dates: [])
     low_incomplete = TaskDetail.new(task: @task, expected: 10, completed: 2, missing_dates: [])
-    
+
     result = WeeklySummaryResult.new(
       total_expected: 25,
       total_completed: 15,
-      task_details: [@perfect_detail, low_incomplete, high_incomplete]
+      task_details: [ @perfect_detail, low_incomplete, high_incomplete ]
     )
-    
+
     incomplete_tasks = result.incomplete_tasks
     assert_equal 2, incomplete_tasks.count
     # Should be sorted by percentage descending (80% then 20%)
@@ -64,7 +64,7 @@ class WeeklySummaryResultTest < ActiveSupport::TestCase
       total_completed: 12,
       task_details: @task_details
     )
-    
+
     assert_equal 15, result.total_expected
     assert_equal 12, result.total_completed
     assert_equal @task_details, result.task_details

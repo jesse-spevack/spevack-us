@@ -11,7 +11,7 @@ class WeeklySummary
 
   def get
     task_details = calculate_task_details
-    
+
     WeeklySummaryResult.new(
       total_expected: task_details.sum(&:expected),
       total_completed: task_details.sum(&:completed),
@@ -29,10 +29,10 @@ class WeeklySummary
       completed_dates = task.task_completions
                            .where(completed_on: week_start..week_end)
                            .pluck(:completed_on)
-      
+
       expected_count = expected_dates.count
       completed_count = completed_dates.count
-      
+
       TaskDetail.new(
         task: task,
         expected: expected_count,

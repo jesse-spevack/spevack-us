@@ -121,9 +121,9 @@ class TaskTest < ActiveSupport::TestCase
   def test_dates_for_week_returns_dates_task_is_due
     task = tasks(:make_bed) # daily task
     week_start = Date.new(2025, 1, 6) # Monday
-    
+
     dates = task.dates_for_week(week_start)
-    
+
     assert_equal 7, dates.count
     assert_equal week_start, dates.first
     assert_equal week_start + 6.days, dates.last # Sunday
@@ -132,9 +132,9 @@ class TaskTest < ActiveSupport::TestCase
   def test_dates_for_week_weekend_task
     task = tasks(:clean_room) # weekend task
     week_start = Date.new(2025, 1, 6) # Monday
-    
+
     dates = task.dates_for_week(week_start)
-    
+
     assert_equal 2, dates.count
     assert_includes dates, Date.new(2025, 1, 11) # Saturday
     assert_includes dates, Date.new(2025, 1, 12) # Sunday
@@ -143,12 +143,12 @@ class TaskTest < ActiveSupport::TestCase
   def test_dates_for_week_specific_days_task
     task = tasks(:take_out_trash) # specific_days: "1,3,5" (Mon, Wed, Fri)
     week_start = Date.new(2025, 1, 6) # Monday
-    
+
     dates = task.dates_for_week(week_start)
-    
+
     assert_equal 3, dates.count
     assert_includes dates, Date.new(2025, 1, 6)  # Monday
-    assert_includes dates, Date.new(2025, 1, 8)  # Wednesday  
+    assert_includes dates, Date.new(2025, 1, 8)  # Wednesday
     assert_includes dates, Date.new(2025, 1, 10) # Friday
   end
 end

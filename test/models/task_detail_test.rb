@@ -26,14 +26,14 @@ class TaskDetailTest < ActiveSupport::TestCase
   end
 
   def test_attributes_are_accessible
-    missing_dates = [Date.current, Date.current + 1.day]
+    missing_dates = [ Date.current, Date.current + 1.day ]
     detail = TaskDetail.new(
       task: @task,
       expected: 7,
       completed: 5,
       missing_dates: missing_dates
     )
-    
+
     assert_equal @task, detail.task
     assert_equal 7, detail.expected
     assert_equal 5, detail.completed
