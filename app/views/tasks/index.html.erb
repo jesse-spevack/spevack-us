@@ -22,27 +22,4 @@
   <% end %>
 </nav>
 
-<main class="max-w-3xl mx-auto px-8 pb-12">
-  <% %w[morning afternoon evening].each do |time_period| %>
-    <% tasks_for_period = @tasks.select { |t| t.time_of_day == time_period && t.due_on?(@date) } %>
-    <% if tasks_for_period.any? %>
-      <section class="mb-12">
-        <h3 class="text-base font-normal uppercase tracking-wider mb-6 pb-2 border-b border-gray-300 capitalize"><%= time_period %></h3>
-        <% tasks_for_period.each do |task| %>
-          <% completion = task.task_completion_for_day(@date) %>
-          <%= form_with url: completion ? task_task_completion_path(task, completion, date: @date) : task_task_completions_path(task, date: @date),
-                      method: completion ? :delete : :post,
-                      class: "task-row" do |f| %>
-            <label class="flex items-center py-4 border-b border-gray-100 cursor-pointer min-h-15 hover:bg-gray-50 hover:-mx-4 hover:px-4 transition-all duration-150">
-              <input type="checkbox" 
-                     <%= 'checked' if completion %>
-                     onchange="this.form.submit()"
-                     class="mr-6 flex-shrink-0">
-              <span class="text-lg font-light flex-grow <%= 'line-through text-gray-600' if completion %>"><%= task.name %></span>
-            </label>
-          <% end %>
-        <% end %>
-      </section>
-    <% end %>
-  <% end %>
-</main>
+<%= render "tasks_frame" %>
