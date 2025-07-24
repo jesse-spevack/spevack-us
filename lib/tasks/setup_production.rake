@@ -8,7 +8,7 @@ namespace :setup do
     audrey = Child.find_or_create_by(name: "Audrey") do |child|
       child.theme = "default"
     end
-    
+
     eddie = Child.find_or_create_by(name: "Eddie") do |child|
       child.theme = "default"
     end
@@ -21,17 +21,17 @@ namespace :setup do
 
     # Audrey's tasks
     puts "Creating Audrey's tasks..."
-    
+
     # Morning tasks (daily)
     audrey_morning_tasks = [
       "wake up",
-      "eat breakfast", 
+      "eat breakfast",
       "get dressed",
       "brush teeth/hair",
       "pack bag",
       "get in the car"
     ]
-    
+
     audrey_morning_tasks.each do |task_name|
       audrey.tasks.create!(
         name: task_name,
@@ -49,11 +49,11 @@ namespace :setup do
       "complete math HW",
       "self-study (typing, math facts)"
     ]
-    
+
     audrey_afternoon_tasks.each do |task_name|
       audrey.tasks.create!(
         name: task_name,
-        time_of_day: "afternoon", 
+        time_of_day: "afternoon",
         frequency: "daily"
       )
     end
@@ -62,14 +62,14 @@ namespace :setup do
     audrey_evening_tasks = [
       "set the table",
       "take vitamins",
-      "clear the table", 
+      "clear the table",
       "pack lunch",
       "complete reading HW",
       "get PJs on",
       "brush teeth",
       "shower"
     ]
-    
+
     audrey_evening_tasks.each do |task_name|
       audrey.tasks.create!(
         name: task_name,
@@ -87,17 +87,17 @@ namespace :setup do
 
     # Eddie's tasks
     puts "Creating Eddie's tasks..."
-    
+
     # Morning tasks (daily)
     eddie_morning_tasks = [
       "wake up",
       "eat breakfast",
-      "get dressed", 
+      "get dressed",
       "brush teeth/hair",
       "pack bag",
       "get in the car"
     ]
-    
+
     eddie_morning_tasks.each do |task_name|
       eddie.tasks.create!(
         name: task_name,
@@ -109,17 +109,17 @@ namespace :setup do
     # Afternoon tasks (daily)
     eddie_afternoon_tasks = [
       "unpack",
-      "eat snack", 
+      "eat snack",
       "clean table",
       "complete math HW",
       "self-study (typing, math facts)"
     ]
-    
+
     eddie_afternoon_tasks.each do |task_name|
       eddie.tasks.create!(
         name: task_name,
         time_of_day: "afternoon",
-        frequency: "daily"  
+        frequency: "daily"
       )
     end
 
@@ -128,13 +128,13 @@ namespace :setup do
       "set the table",
       "take vitamins",
       "clear the table",
-      "pack lunch", 
+      "pack lunch",
       "complete reading HW",
       "get PJs on",
       "brush teeth",
       "shower"
     ]
-    
+
     eddie_evening_tasks.each do |task_name|
       eddie.tasks.create!(
         name: task_name,
@@ -145,7 +145,7 @@ namespace :setup do
 
     # Weekend tasks
     eddie.tasks.create!(
-      name: "run light load of laundry", 
+      name: "run light load of laundry",
       time_of_day: "afternoon",
       frequency: "weekend"
     )
@@ -161,7 +161,7 @@ namespace :setup do
         puts "    - #{count} #{freq} #{time} tasks"
       end
     end
-    
+
     puts "\nYou can now run the application!"
   end
 end
