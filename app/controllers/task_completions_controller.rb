@@ -1,4 +1,5 @@
 class TaskCompletionsController < ApplicationController
+  before_action :require_child
   before_action :set_task
   before_action :set_date
 

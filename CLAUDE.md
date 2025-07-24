@@ -43,8 +43,8 @@ This is a Ruby on Rails 8.0.2 application called ChoreTracker. It's a fresh Rail
 - **WebSocket**: Solid Cable
 
 ### Key Directories
-- `app/models/` - ActiveRecord models (only ApplicationRecord currently)
-- `app/controllers/` - Controllers (only ApplicationController currently)  
+- `app/models/` - ActiveRecord models (Child, Task, TaskCompletion)
+- `app/controllers/` - Controllers (Application, Tasks, TaskCompletions, Children)
 - `app/views/` - ERB templates and layouts
 - `app/javascript/` - Stimulus controllers and JavaScript
 - `config/` - Rails configuration files
@@ -52,7 +52,12 @@ This is a Ruby on Rails 8.0.2 application called ChoreTracker. It's a fresh Rail
 - `test/` - Test files (using Rails default testing)
 
 ### Current State
-This appears to be a newly generated Rails application with no custom models, controllers, or routes defined yet. The application uses modern Rails conventions with Hotwire for interactivity and Tailwind for styling.
+This application has implemented Phase 1 (minimum working app) and Phase 2.1-2.2 (child selection with cookie persistence). It includes:
+- Complete database schema for children, tasks, and task_completions
+- Working daily task view with completion tracking
+- Child selection screen with cookie-based authentication
+- RESTful controllers and proper test coverage
+- Basic Tailwind styling optimized for iPad touch targets
 
 ## Development Philosophy
 
@@ -126,6 +131,17 @@ This appears to be a newly generated Rails application with no custom models, co
     member { post :toggle }
   end
   ```
+- **Cookie-based authentication**: Use simple cookie persistence for child selection
+  ```ruby
+  # ApplicationController pattern
+  def current_child
+    @current_child ||= Child.find_by(id: cookies[:child_id])
+  end
+
+  def require_child
+    redirect_to children_path unless current_child
+  end
+  ```
 - **Controller organization**: Keep controllers thin, move logic to models and before_actions
   ```ruby
   # GOOD - thin controller with before_actions
@@ -190,6 +206,21 @@ This appears to be a newly generated Rails application with no custom models, co
   def test_valid_model_with_required_attributes
     model = Model.new(required_field: "value")
     assert model.valid?
+  end
+  ```
+- **Test authentication patterns**: Handle cookie-based authentication in tests
+  ```ruby
+  # Setup method for controller tests requiring child authentication
+  def setup
+    post select_child_path(children(:eddie))
+  end
+  
+  # Separate test class for redirect testing
+  class ControllerRedirectTest < ActionDispatch::IntegrationTest
+    def test_redirects_when_no_child_selected
+      get protected_path
+      assert_redirected_to children_path
+    end
   end
   ```
 - **Console verification**: Use `rails console` to experiment and verify behavior
