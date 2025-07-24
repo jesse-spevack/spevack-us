@@ -16,7 +16,7 @@
                        <%= 'checked' if completion %>
                        onchange="this.form.submit()"
                        class="mr-6 flex-shrink-0">
-                <span class="text-lg font-light flex-grow <%= 'line-through text-gray-600' if completion %>"><%= task.name %></span>
+                <span class="text-lg font-light flex-grow <%= 'line-through text-gray-600' if completion %>"><%= task.name.capitalize %></span>
               </label>
             <% end %>
           <% end %>
