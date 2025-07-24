@@ -411,10 +411,11 @@ Implement the weekly summary view for family meetings.
 
 #### Tasks
 
-- [ ] **3.1 Create weekly review controller and view**
+- [x] **3.1 Create weekly review controller and view**
   - **Files**: 
     - `app/controllers/reviews_controller.rb`
-    - `app/views/reviews/weekly.html.erb`
+    - `app/views/reviews/show.html.erb`
+    - `config/routes.rb` (updated with RESTful route)
   - **Implementation Notes**:
     ```ruby
     # app/controllers/reviews_controller.rb

@@ -8,7 +8,5 @@ Rails.application.routes.draw do
   end
 
   resource :session, only: [ :new, :create, :destroy ]
-
-  # Future phases
-  # get "weekly_review/:child_id", to: "reviews#weekly", as: :weekly_review
+  resource :review, only: [ :show ]
 end

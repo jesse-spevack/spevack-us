@@ -1,0 +1,49 @@
+<div class="max-w-2xl mx-auto p-4">
+  <header class="text-center mb-8">
+    <h1 class="text-2xl font-bold">ChoreTracker</h1>
+    <h2 class="text-xl mt-2"><%= @child.name %>'s Week in Review</h2>
+    <p class="text-gray-600 mt-1">
+      <%= @week_start.strftime("%B %d") %> - <%= @week_end.strftime("%d, %Y") %>
+    </p>
+  </header>
+  
+  <section class="mb-8 p-6 border-2 border-black">
+    <h3 class="text-lg font-semibold mb-4">Overview</h3>
+    <div class="space-y-2 text-lg">
+      <p>Tasks Assigned: <strong><%= @summary.total_expected %></strong></p>
+      <p>Tasks Completed: <strong><%= @summary.total_completed %></strong></p>
+      <p>Completion Rate: <strong><%= @summary.overall_percentage %>%</strong></p>
+    </div>
+  </section>
+  
+  <% if @summary.perfect_tasks.any? %>
+    <section class="mb-8">
+      <h3 class="text-lg font-semibold mb-4">Perfectly Done (100%)</h3>
+      <ul class="space-y-1">
+        <% @summary.perfect_tasks.each do |task_detail| %>
+          <li class="text-lg">✓ <%= task_detail.task.name.capitalize %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+  
+  <% if @summary.incomplete_tasks.any? %>
+    <section class="mb-8">
+      <h3 class="text-lg font-semibold mb-4">Needs Attention</h3>
+      <ul class="space-y-2">
+        <% @summary.incomplete_tasks.each do |task_detail| %>
+          <li class="text-lg">
+            <%= task_detail.task.name.capitalize %>
+            <span class="text-gray-600">
+              (<%= task_detail.completed %> of <%= task_detail.expected %> - <%= task_detail.percentage %>%)
+            </span>
+          </li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+  
+  <div class="text-center mt-8">
+    <%= link_to "Back to Today", tasks_path, class: "inline-block px-6 py-3 border-2 border-black text-lg hover:bg-gray-100" %>
+  </div>
+</div>
