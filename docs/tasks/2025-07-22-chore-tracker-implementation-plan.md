@@ -280,7 +280,7 @@ Add child selection, improve navigation, and polish the visual design.
 
 #### Tasks
 
-- [ ] **2.1 Add child selection screen**
+- [x] **2.1 Add child selection screen**
   - **Files**: 
     - `app/controllers/children_controller.rb`
     - `app/views/children/index.html.erb`
@@ -317,7 +317,7 @@ Add child selection, improve navigation, and polish the visual design.
     </div>
     ```
 
-- [ ] **2.2 Add cookie-based child persistence**
+- [x] **2.2 Add cookie-based child persistence**
   - **Files**: Update `app/controllers/application_controller.rb`, `app/controllers/tasks_controller.rb`
   - **Implementation Notes**:
     ```ruby
@@ -774,3 +774,20 @@ task.update!(active: false)
 - `db/migrate/20250723123038_create_children.rb` - Creates children table with name and theme fields
 - `db/migrate/20250723123421_create_tasks.rb` - Creates tasks table with time_of_day, frequency, and child association
 - `db/migrate/20250723123432_create_task_completions.rb` - Creates task_completions table for tracking completed tasks
+
+### Controllers
+- `app/controllers/application_controller.rb` - Base controller with shared set_date method and cookie-based child authentication
+- `app/controllers/tasks_controller.rb` - Handles daily task viewing with RESTful index action and child requirement
+- `app/controllers/task_completions_controller.rb` - Manages task completion create/destroy actions with child requirement
+- `app/controllers/children_controller.rb` - Handles child selection screen and cookie-based selection persistence
+
+### Views
+- `app/views/tasks/index.html.erb` - Daily task view with time-based sections and completion forms
+- `app/views/children/index.html.erb` - Child selection screen with large touch-friendly buttons
+
+### Routes
+- `config/routes.rb` - RESTful routes for tasks, task_completions, and children resources
+
+### Tests
+- `test/controllers/application_controller_test.rb` - Tests for date handling and child authentication
+- `test/controllers/children_controller_test.rb` - Tests for child selection and cookie persistence

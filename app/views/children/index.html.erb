@@ -1,0 +1,14 @@
+<div class="min-h-screen flex items-center justify-center">
+  <div class="text-center">
+    <h1 class="text-4xl font-bold mb-8">Who are you?</h1>
+    <div class="flex gap-8 justify-center">
+      <% @children.each do |child| %>
+        <%= link_to select_child_path(child), 
+            method: :post,
+            class: "block p-12 border-4 border-black text-2xl font-semibold hover:bg-gray-100" do %>
+          <%= child.name %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
