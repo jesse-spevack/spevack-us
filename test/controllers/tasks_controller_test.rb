@@ -34,18 +34,16 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   def test_forward_navigation_hidden_on_current_date
     get tasks_path
     assert_response :success
-    # Check that the forward arrow has visibility: hidden style
-    assert_select "a", text: "→" do |elements|
-      assert elements.first["style"].include?("visibility: hidden")
-    end
+    # Check that the forward arrow has invisible class
+    assert_select "a.invisible", text: "→"
   end
 
   def test_forward_navigation_visible_on_past_date
     get tasks_path(date: Date.current - 1.day)
     assert_response :success
-    # Check that the forward arrow does not have visibility: hidden style
+    # Check that the forward arrow does not have invisible class
     assert_select "a", text: "→" do |elements|
-      assert_not elements.first["style"].include?("visibility: hidden")
+      assert_not elements.first["class"]&.include?("invisible")
     end
   end
 
