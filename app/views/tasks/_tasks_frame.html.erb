@@ -1,5 +1,8 @@
 <%= turbo_frame_tag "tasks" do %>
   <main class="max-w-3xl mx-auto px-8 pb-12">
+    <p class="text-base text-gray-700 mb-8 text-center italic">
+      Place a check mark by all items you did with craft, independence, and a great attitude throughout the day
+    </p>
     <% %w[morning afternoon evening].each do |time_period| %>
       <% tasks_for_period = @tasks.select { |t| t.time_of_day == time_period && t.due_on?(@date) } %>
       <% if tasks_for_period.any? %>
