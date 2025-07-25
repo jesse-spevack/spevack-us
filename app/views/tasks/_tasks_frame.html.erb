@@ -18,7 +18,7 @@
               <label class="flex items-center py-4 border-b border-muted cursor-pointer min-h-15 hover:bg-muted hover:-mx-4 hover:px-4 transition-all duration-150">
                 <input type="checkbox" 
                        <%= 'checked' if completion %>
-                       onchange="this.form.submit()"
+                       onchange="this.form.requestSubmit()"
                        class="mr-6 flex-shrink-0">
                 <span class="text-lg font-light flex-grow <%= 'line-through text-muted-foreground' if completion %>"><%= task.name.capitalize %></span>
               </label>
