@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
+  helper_method :current_child, :theme_class
+
   private
 
   def set_date
@@ -14,5 +16,20 @@ class ApplicationController < ActionController::Base
 
   def require_child
     redirect_to new_session_path unless current_child
+  end
+
+  def theme_class
+    if current_child
+      case current_child.theme
+      when "neo-brutalism"
+        "theme-neo-brutalism"
+      when "candy"
+        "theme-retro-gurl"
+      else
+        "theme-default"
+      end
+    else
+      "theme-default"
+    end
   end
 end
