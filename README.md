@@ -64,7 +64,9 @@ audrey.add_daily_task("Clear dishes", :evening)
 audrey.add_weekday_task("Practice piano", "1,2,3,4,5", :afternoon)  # Weekdays
 
 # Using the interactive task creator
-rake chores:create
+# Development: bin/rails chores:create
+# Production: kamal shell -c "bin/rails chores:create"
+bin/rails chores:create
 
 # Direct creation for more control
 Task.create!(
@@ -100,12 +102,29 @@ bundle exec brakeman
 
 ### Console Commands
 
-```ruby
+For development, run these commands directly:
+
+```bash
 # List all tasks
-rake chores:list
+bin/rails chores:list
 
 # Create a task interactively
-rake chores:create
+bin/rails chores:create
+```
+
+For production (using Kamal deployment), prefix with kamal shell:
+
+```bash
+# List all tasks in production
+kamal shell -c "bin/rails chores:list"
+
+# Create a task interactively in production
+kamal shell -c "bin/rails chores:create"
+```
+
+For direct model manipulation (development or production console):
+
+```ruby
 
 # Direct task creation
 Task.create!(
