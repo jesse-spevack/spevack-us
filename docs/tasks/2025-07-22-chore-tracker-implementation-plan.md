@@ -471,7 +471,7 @@ Implement the weekly summary view for family meetings.
     end
     ```
 
-- [ ] **3.2 Create clean weekly review layout**
+- [x] **3.2 Create clean weekly review layout**
   - **Files**: `app/views/reviews/weekly.html.erb`
   - **Implementation Notes**:
     ```erb
@@ -522,7 +522,7 @@ Implement the weekly summary view for family meetings.
     </div>
     ```
 
-- [ ] **3.3 Add navigation to weekly review**
+- [x] **3.3 Add navigation to weekly review**
   - **Files**: Update daily view and routes
   - **Implementation Notes**: Add link from daily view to weekly review
 
@@ -539,7 +539,7 @@ Create console helpers for easy task creation and management.
 
 #### Tasks
 
-- [ ] **4.1 Create task management helpers**
+- [x] **4.1 Create task management helpers**
   - **Files**: `lib/tasks/chores.rake`
   - **Implementation Notes**:
     ```ruby
@@ -626,7 +626,7 @@ Create console helpers for easy task creation and management.
     end
     ```
 
-- [ ] **4.2 Add quick helper methods**
+- [x] **4.2 Add quick helper methods**
   - **Files**: `app/models/child.rb`, `app/models/task.rb`
   - **Implementation Notes**:
     ```ruby
@@ -649,7 +649,7 @@ Create console helpers for easy task creation and management.
     end
     ```
 
-- [ ] **4.3 Document console usage**
+- [x] **4.3 Document console usage**
   - **Files**: Update `README.md`
   - **Implementation Notes**: Add section with common console commands
 
@@ -802,3 +802,6 @@ task.update!(active: false)
 ### Tests
 - `test/controllers/application_controller_test.rb` - Tests for date handling and child authentication
 - `test/controllers/children_controller_test.rb` - Tests for child selection and cookie persistence
+
+### Rake Tasks
+- `lib/tasks/chores.rake` - Interactive task creation and listing helpers for console-based task management

@@ -51,14 +51,31 @@ Visit http://localhost:3000 to see the app.
 The easiest way to create tasks is through the Rails console:
 
 ```ruby
-# Quick task creation
+# Quick task creation using helper methods
 eddie = Child.find_by(name: "Eddie")
 eddie.add_daily_task("Make bed", :morning)
 eddie.add_weekday_task("Take out trash", "1,3,5", :afternoon)  # MWF
 eddie.add_weekend_task("Clean room", :afternoon)
 
-# Or use the interactive task creator
-rake chores:create
+# More examples with helper methods
+audrey = Child.find_by(name: "Audrey")
+audrey.add_daily_task("Feed cat", :morning)
+audrey.add_daily_task("Clear dishes", :evening)
+audrey.add_weekday_task("Practice piano", "1,2,3,4,5", :afternoon)  # Weekdays
+
+# Using the interactive task creator
+# Development: bin/rails chores:create
+# Production: kamal shell -c "bin/rails chores:create"
+bin/rails chores:create
+
+# Direct creation for more control
+Task.create!(
+  child: eddie,
+  name: "Do homework",
+  time_of_day: "afternoon",
+  frequency: "specific_days",
+  specific_days: "1,2,3,4,5"  # Weekdays
+)
 ```
 
 ### Daily Use
@@ -85,12 +102,29 @@ bundle exec brakeman
 
 ### Console Commands
 
-```ruby
+For development, run these commands directly:
+
+```bash
 # List all tasks
-rake chores:list
+bin/rails chores:list
 
 # Create a task interactively
-rake chores:create
+bin/rails chores:create
+```
+
+For production (using Kamal deployment), prefix with kamal shell:
+
+```bash
+# List all tasks in production
+kamal shell -c "bin/rails chores:list"
+
+# Create a task interactively in production
+kamal shell -c "bin/rails chores:create"
+```
+
+For direct model manipulation (development or production console):
+
+```ruby
 
 # Direct task creation
 Task.create!(
@@ -99,6 +133,25 @@ Task.create!(
   time_of_day: "morning",
   frequency: "daily"
 )
+
+# Create task with specific days (weekdays)
+Task.create!(
+  child: eddie,
+  name: "Do homework",
+  time_of_day: "afternoon",
+  frequency: "specific_days",
+  specific_days: "1,2,3,4,5"  # Monday through Friday
+)
+
+# Modify existing task
+task = eddie.tasks.find_by(name: "Take out trash")
+task.update!(frequency: "daily")  # Change schedule
+
+# Deactivate task (soft delete)
+task.update!(active: false)
+
+# Reactivate task
+task.update!(active: true)
 ```
 
 ## Production Deployment
