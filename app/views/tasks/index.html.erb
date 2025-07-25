@@ -1,28 +1,27 @@
-<header class="flex justify-between items-center p-6 border-b border-border">
-  <div class="flex items-baseline gap-4">
-    <h1 class="text-2xl font-light -tracking-wider">ChoreTracker</h1>
-    <span class="text-lg text-muted-foreground"><%= @child.name %></span>
+<header class="flex justify-between items-center p-4 md:p-6 border-b border-border">
+  <div class="flex items-baseline gap-2">
+    <span class="text-lg font-medium"><%= @child.name %>'s Tasks</span>
   </div>
-  <div class="flex items-center gap-4">
+  <div class="flex items-center gap-2 md:gap-4">
     <%= link_to "Weekly Review", review_path, 
-        class: "border border-border px-4 py-2 text-sm hover:bg-primary hover:text-primary-foreground transition-all duration-150 min-h-11" %>
+        class: "btn px-3 md:px-4 py-2 text-sm min-h-11" %>
     <%= button_to "Switch Child", session_path, 
         method: :delete,
-        class: "border border-border px-4 py-2 text-sm hover:bg-primary hover:text-primary-foreground transition-all duration-150 min-h-11" %>
+        class: "btn px-3 md:px-4 py-2 text-sm min-h-11" %>
   </div>
 </header>
 
-<nav class="flex justify-center items-center gap-6 p-8 pb-6">
+<nav class="flex justify-center items-center gap-3 md:gap-6 p-4 md:p-8 pb-3 md:pb-6">
   <%= link_to "←", tasks_path(date: @date - 1), 
       class: "nav-link text-2xl p-2" %>
-  <h2 class="text-xl font-light min-w-52 text-center">
+  <h2 class="text-lg md:text-xl font-light min-w-40 md:min-w-52 text-center">
     <%= @date.strftime("%A, %B %d") %>
   </h2>
   <%= link_to "→", tasks_path(date: @date + 1), 
       class: "nav-link text-2xl p-2 #{'invisible' if @date >= Date.current}" %>
   <% unless @is_today %>
     <%= link_to "Today", tasks_path, 
-        class: "border border-border px-4 py-2 text-sm hover:bg-primary hover:text-primary-foreground transition-all duration-150 min-h-11" %>
+        class: "btn px-3 md:px-4 py-2 text-sm min-h-11" %>
   <% end %>
 </nav>
 

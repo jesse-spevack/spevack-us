@@ -50,7 +50,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   def test_shows_current_child_name
     get tasks_path
     assert_response :success
-    assert_select "span", text: "Eddie"
+    assert_select "span", text: "Eddie's Tasks"
   end
 
   def test_shows_switch_child_button
