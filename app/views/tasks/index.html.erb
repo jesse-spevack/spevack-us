@@ -1,28 +1,67 @@
-<header class="flex justify-between items-center p-4 md:p-6 border-b border-border">
-  <div class="flex items-baseline gap-2">
-    <span class="text-lg font-medium"><%= @child.name %>'s Tasks</span>
-  </div>
-  <div class="flex items-center gap-2 md:gap-4">
-    <%= link_to "Weekly Review", review_path, 
-        class: "btn px-3 md:px-4 py-2 text-sm min-h-11" %>
-    <%= button_to "Switch Child", session_path, 
-        method: :delete,
-        class: "btn px-3 md:px-4 py-2 text-sm min-h-11" %>
-  </div>
-</header>
+<% if theme_class == "theme-retro-gurl" %>
+  <div class="container">
+    <div class="glass-container">
+      <header class="header-glass">
+        <div class="flex justify-between items-center">
+          <h1 class="text-xl font-semibold"><%= @child.name %>'s Tasks</h1>
+          <div class="flex items-center gap-3">
+            <%= link_to "Weekly Review", review_path, class: "nav-button nav-button-primary" %>
+            <%= button_to "Switch Child", session_path, method: :delete, class: "nav-button nav-button-secondary" %>
+          </div>
+        </div>
+      </header>
 
-<nav class="flex justify-center items-center gap-3 md:gap-6 p-4 md:p-8 pb-3 md:pb-6">
-  <%= link_to "←", tasks_path(date: @date - 1), 
-      class: "nav-link text-2xl p-2" %>
-  <h2 class="text-lg md:text-xl font-light min-w-40 md:min-w-52 text-center">
-    <%= @date.strftime("%A, %B %d") %>
-  </h2>
-  <%= link_to "→", tasks_path(date: @date + 1), 
-      class: "nav-link text-2xl p-2 #{'invisible' if @date >= Date.current}" %>
-  <% unless @is_today %>
-    <%= link_to "Today", tasks_path, 
-        class: "btn px-3 md:px-4 py-2 text-sm min-h-11" %>
-  <% end %>
-</nav>
+      <nav class="flex justify-center items-center gap-4 p-4">
+        <%= link_to tasks_path(date: @date - 1), class: "date-nav-arrow" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        <% end %>
+        <div class="date-display">
+          <h2 class="text-lg font-medium text-center">
+            <%= @date.strftime("%A, %B %d") %>
+          </h2>
+        </div>
+        <%= link_to tasks_path(date: @date + 1), class: "date-nav-arrow #{'opacity-30 pointer-events-none' if @date >= Date.current}" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        <% end %>
+        <% unless @is_today %>
+          <%= link_to "Today", tasks_path, class: "today-button" %>
+        <% end %>
+      </nav>
 
-<%= render "tasks_frame" %>
+      <%= render "tasks_frame" %>
+    </div>
+  </div>
+<% else %>
+  <header class="flex justify-between items-center p-4 md:p-6 border-b border-border">
+    <div class="flex items-baseline gap-2">
+      <span class="text-lg font-medium"><%= @child.name %>'s Tasks</span>
+    </div>
+    <div class="flex items-center gap-2 md:gap-4">
+      <%= link_to "Weekly Review", review_path, 
+          class: "btn px-3 md:px-4 py-2 text-sm min-h-11" %>
+      <%= button_to "Switch Child", session_path, 
+          method: :delete,
+          class: "btn px-3 md:px-4 py-2 text-sm min-h-11" %>
+    </div>
+  </header>
+
+  <nav class="flex justify-center items-center gap-3 md:gap-6 p-4 md:p-8 pb-3 md:pb-6">
+    <%= link_to "←", tasks_path(date: @date - 1), 
+        class: "nav-link text-2xl p-2" %>
+    <h2 class="text-lg md:text-xl font-light min-w-40 md:min-w-52 text-center">
+      <%= @date.strftime("%A, %B %d") %>
+    </h2>
+    <%= link_to "→", tasks_path(date: @date + 1), 
+        class: "nav-link text-2xl p-2 #{'invisible' if @date >= Date.current}" %>
+    <% unless @is_today %>
+      <%= link_to "Today", tasks_path, 
+          class: "btn px-3 md:px-4 py-2 text-sm min-h-11" %>
+    <% end %>
+  </nav>
+
+  <%= render "tasks_frame" %>
+<% end %>

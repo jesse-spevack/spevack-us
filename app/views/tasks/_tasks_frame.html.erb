@@ -1,31 +1,62 @@
 <%= turbo_frame_tag "tasks" do %>
-  <main class="max-w-3xl mx-auto px-8 pb-12">
-    <p class="text-base text-muted-foreground mb-8 text-center italic">
-      Place a check mark by all items you did with craft, independence, and a great attitude throughout the day
-    </p>
-    <% %w[morning afternoon evening].each do |time_period| %>
-      <% tasks_for_period = @tasks.select { |t| t.time_of_day == time_period && t.due_on?(@date) } %>
-      <% if tasks_for_period.any? %>
-        <section class="mb-12">
-          <h3 class="text-base font-normal uppercase tracking-wider mb-6 pb-2 border-b border-muted capitalize"><%= time_period %></h3>
-          <% tasks_for_period.each do |task| %>
-            <% completion = task.task_completion_for_day(@date) %>
-            <%= form_with url: completion ? task_task_completion_path(task, completion, date: @date) : task_task_completions_path(task, date: @date),
-                        method: completion ? :delete : :post,
-                        local: false,
-                        class: "task-row",
-                        data: { turbo_frame: "tasks", turbo_stream: true } do |f| %>
-              <label class="flex items-center py-4 border-b border-muted cursor-pointer min-h-15 hover:bg-muted hover:-mx-4 hover:px-4 transition-all duration-150">
-                <input type="checkbox" 
-                       <%= 'checked' if completion %>
-                       onchange="this.form.requestSubmit()"
-                       class="mr-6 flex-shrink-0">
-                <span class="text-lg font-light flex-grow <%= 'line-through text-muted-foreground' if completion %>"><%= task.name.capitalize %></span>
-              </label>
+  <% if theme_class == "theme-retro-gurl" %>
+    <div class="tasks-content">
+      <p class="intro-text">
+        Place a check mark by all items you did with craft, independence, and a great attitude throughout the day
+      </p>
+      <% %w[morning afternoon evening].each do |time_period| %>
+        <% tasks_for_period = @tasks.select { |t| t.time_of_day == time_period && t.due_on?(@date) } %>
+        <% if tasks_for_period.any? %>
+          <section class="mb-4">
+            <h3 class="text-base font-semibold uppercase tracking-wider mb-4 capitalize"><%= time_period %></h3>
+            <% tasks_for_period.each do |task| %>
+              <% completion = task.task_completion_for_day(@date) %>
+              <%= form_with url: completion ? task_task_completion_path(task, completion, date: @date) : task_task_completions_path(task, date: @date),
+                          method: completion ? :delete : :post,
+                          local: false,
+                          class: "task-row",
+                          data: { turbo_frame: "tasks", turbo_stream: true } do |f| %>
+                <label>
+                  <input type="checkbox" 
+                         <%= 'checked' if completion %>
+                         onchange="this.form.requestSubmit()">
+                  <span class="<%= 'line-through' if completion %>"><%= task.name.capitalize %></span>
+                </label>
+              <% end %>
             <% end %>
-          <% end %>
-        </section>
+          </section>
+        <% end %>
       <% end %>
-    <% end %>
-  </main>
+    </div>
+  <% else %>
+    <main class="max-w-3xl mx-auto px-8 pb-12">
+      <p class="text-base text-muted-foreground mb-8 text-center italic">
+        Place a check mark by all items you did with craft, independence, and a great attitude throughout the day
+      </p>
+      <% %w[morning afternoon evening].each do |time_period| %>
+        <% tasks_for_period = @tasks.select { |t| t.time_of_day == time_period && t.due_on?(@date) } %>
+        <% if tasks_for_period.any? %>
+          <section class="mb-12">
+            <h3 class="text-base font-normal uppercase tracking-wider mb-6 pb-2 border-b border-muted capitalize"><%= time_period %></h3>
+            <% tasks_for_period.each do |task| %>
+              <% completion = task.task_completion_for_day(@date) %>
+              <%= form_with url: completion ? task_task_completion_path(task, completion, date: @date) : task_task_completions_path(task, date: @date),
+                          method: completion ? :delete : :post,
+                          local: false,
+                          class: "task-row",
+                          data: { turbo_frame: "tasks", turbo_stream: true } do |f| %>
+                <label class="flex items-center py-4 border-b border-muted cursor-pointer min-h-15 hover:bg-muted hover:-mx-4 hover:px-4 transition-all duration-150">
+                  <input type="checkbox" 
+                         <%= 'checked' if completion %>
+                         onchange="this.form.requestSubmit()"
+                         class="mr-6 flex-shrink-0">
+                  <span class="text-lg font-light flex-grow <%= 'line-through text-muted-foreground' if completion %>"><%= task.name.capitalize %></span>
+                </label>
+              <% end %>
+            <% end %>
+          </section>
+        <% end %>
+      <% end %>
+    </main>
+  <% end %>
 <% end %>
