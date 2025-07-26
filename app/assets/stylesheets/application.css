@@ -208,153 +208,260 @@
     box-shadow: 2px 2px 0px #000000;
   }
   
-  /* Retro gurl theme for Audrey */
+  /* Clean Rainbow theme for Audrey */
   .theme-retro-gurl {
-    --background: #f6e6ee;
-    --foreground: #374151;
-    --primary: #d04f99;
+    --background: #ffffff;
+    --foreground: #1f2937; /* Darker for better contrast */
+    --primary: #66E0B3; /* Teal gradient */
     --primary-foreground: #ffffff;
-    --secondary: #8acfd1;
+    --secondary: #FF7F7F; /* Coral */
     --secondary-foreground: #ffffff;
-    --accent: #fbbf24;
-    --accent-foreground: #374151;
-    --card: #fdedc9;
-    --card-foreground: #374151;
-    --muted: #f3f4f6;
+    --accent: #FFE066; /* Yellow */
+    --accent-foreground: #1f2937; /* Darker for better contrast */
+    --card: rgba(255, 255, 255, 0.9); /* Glass white heavy */
+    --card-foreground: #1f2937; /* Darker for better contrast */
+    --muted: rgba(255, 255, 255, 0.2); /* Glass white */
     --muted-foreground: #6b7280;
-    --border: #e5e7eb;
-    --input: #ffffff;
-    --ring: #d04f99;
+    --border: rgba(255, 255, 255, 0.3);
+    --input: rgba(255, 255, 255, 0.9);
+    --ring: #66E0B3;
     
-    /* Typography - system fonts for retro-gurl */
-    font-family: ui-sans-serif, system-ui, sans-serif;
+    /* Typography - system fonts */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     font-weight: 400;
     letter-spacing: 0;
   }
   
-  /* Retro-gurl specific styles */
-  .theme-retro-gurl h1,
-  .theme-retro-gurl h2,
-  .theme-retro-gurl h3 {
-    font-weight: 600;
-    letter-spacing: -0.025em;
-  }
-  
-  .theme-retro-gurl button,
-  .theme-retro-gurl .btn {
-    border-radius: 8px;
-    font-weight: 500;
-    border: 1px solid var(--border);
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    transition: all 150ms ease;
-  }
-  
-  .theme-retro-gurl button:hover,
-  .theme-retro-gurl .btn:hover {
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-    transform: translateY(-1px);
-  }
-  
-  /* Task row styling for retro-gurl */
-  .theme-retro-gurl .task-row label {
-    background-color: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    transition: all 150ms ease;
-    padding: 1rem;
-    margin-bottom: 0.75rem;
-  }
-  
-  /* Completed task styling - teal background */
-  .theme-retro-gurl .task-row:has(input[type="checkbox"]:checked) label {
-    background-color: #8acfd1;
-    border-color: #8acfd1;
-  }
-  
-  .theme-retro-gurl .task-row label:hover {
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-    transform: translateY(-1px);
-  }
-  
-  .theme-retro-gurl header {
-    background-color: var(--card); /* Cream header to match task containers */
-    border: 1px solid var(--border);
-    border-radius: 0;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
-    margin: 0;
+  /* Clean Rainbow specific styles */
+  .theme-retro-gurl {
+    background: linear-gradient(135deg, #FF7F7F 0%, #FFB366 14%, #FFE066 28%, #66E0B3 42%, #66D9EF 57%, #66B3FF 71%, #B366FF 85%, #FF66CC 100%);
+    min-height: 100vh;
   }
   
   .theme-retro-gurl main {
-    background-color: var(--background);
+    background: transparent;
     min-height: 100vh;
-    padding: 1rem;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
-  /* Task container card for retro-gurl */
-  .theme-retro-gurl section {
-    background-color: var(--card);
-    border: 2px solid #d04f99;
-    border-radius: 12px;
-    box-shadow: 4px 4px 0px #d04f99;
+  .theme-retro-gurl .container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Glass container optimized for performance */
+  .theme-retro-gurl .glass-container {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.15);
+    overflow: hidden;
     padding: 1.5rem;
+    width: 100%;
+    max-width: 48rem; /* Much wider: 768px */
+    contain: layout style paint;
+    will-change: transform, opacity;
+  }
+  
+  .theme-retro-gurl .header-glass {
     margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .theme-retro-gurl .tasks-content {
+    padding: 0 1.5rem;
+  }
+  
+  /* Enhanced intro text typography */
+  .theme-retro-gurl .intro-text {
+    font-size: 1.0625rem;
+    font-weight: 400;
+    color: var(--muted-foreground);
+    text-align: center;
+    font-style: italic;
+    padding: 0 2rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    letter-spacing: 0.015em;
+  }
+  
+  .theme-retro-gurl h1 {
+    font-weight: 700;
+    font-size: 1.5rem; /* Larger main heading */
+    color: #1f2937;
+    letter-spacing: -0.025em; /* Slight negative spacing for large text */
+  }
+  
+  .theme-retro-gurl h2 {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #1f2937;
+    letter-spacing: -0.015em;
+  }
+  
+  .theme-retro-gurl h3 {
+    font-weight: 600;
+    color: #1f2937;
+  }
+  
+  .theme-retro-gurl header {
+    padding: 0 0 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Task sections with better spacing */
+  .theme-retro-gurl section {
+    padding: 1.5rem 0;
+    margin-bottom: 2rem;
+  }
+  
+  .theme-retro-gurl section:last-child {
+    margin-bottom: 0;
   }
   
   .theme-retro-gurl section h3 {
-    background-color: transparent;
-    padding: 0 0 0.5rem 0;
+    background: transparent;
+    padding: 0 0 1rem 0;
+    margin-bottom: 1.25rem;
+    font-weight: 800;
+    font-size: 1.375rem; /* Larger for better hierarchy */
+    color: #1f2937;
     border: none;
-    border-bottom: 2px solid var(--primary);
-    box-shadow: none;
-    margin-bottom: 1rem;
-    font-weight: 600;
-    text-transform: none;
-    font-size: 1rem;
-    letter-spacing: 0;
-    color: var(--primary);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    letter-spacing: 0.1em; /* More letter spacing for better readability */
+    text-transform: uppercase;
   }
   
-  .theme-retro-gurl .nav-link {
-    border: 1px solid var(--primary);
-    background-color: var(--card);
-    color: var(--primary);
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
+  /* Task row styling with enhanced micro-interactions */
+  .theme-retro-gurl .task-row {
+    position: relative;
+    margin-bottom: 0.875rem;
   }
   
-  .theme-retro-gurl .nav-link:hover {
-    background-color: var(--primary);
-    color: var(--primary-foreground);
+  .theme-retro-gurl .task-row:last-child {
+    margin-bottom: 0;
+  }
+  
+  .theme-retro-gurl .task-row label {
+    display: flex;
+    align-items: center;
+    padding: 1.125rem 1.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 1rem;
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.1);
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 250ms ease, background-color 200ms ease;
+    cursor: pointer;
+    width: 100%;
+    min-height: 4rem; /* Better touch target height */
+    position: relative;
+    overflow: hidden;
+    will-change: transform;
+  }
+  
+  /* Subtle shimmer effect on hover */
+  .theme-retro-gurl .task-row label::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 500ms ease;
+    pointer-events: none;
+  }
+  
+  .theme-retro-gurl .task-row label:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .theme-retro-gurl .task-row label:hover::before {
+    left: 100%;
+  }
+  
+  .theme-retro-gurl .task-row label:active {
     transform: translateY(-1px);
+    transition: all 100ms ease;
   }
   
+  
+  /* Enhanced gradient checkbox styling optimized for performance */
   .theme-retro-gurl input[type="checkbox"] {
     -webkit-appearance: none;
     appearance: none;
-    border-width: 2px;
-    border-style: solid;
-    border-color: #d04f99;
-    border-radius: 4px;
-    box-shadow: none;
-    background-color: #ffffff;
-    width: 20px;
-    height: 20px;
-    position: relative;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 300ms ease;
+    position: relative;
+    margin-right: 1.5rem;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    will-change: transform;
+  }
+  
+  /* Gradient backgrounds for checkboxes with enhanced effects */
+  .theme-retro-gurl .task-row:nth-child(6n+1) input[type="checkbox"] { 
+    background: linear-gradient(135deg, #66E0B3 0%, #66D9EF 100%);
+    box-shadow: 0 2px 8px 0 rgba(102, 224, 179, 0.3);
+  }
+  .theme-retro-gurl .task-row:nth-child(6n+2) input[type="checkbox"] { 
+    background: linear-gradient(135deg, #FF7F7F 0%, #FF66CC 100%);
+    box-shadow: 0 2px 8px 0 rgba(255, 127, 127, 0.3);
+  }
+  .theme-retro-gurl .task-row:nth-child(6n+3) input[type="checkbox"] { 
+    background: linear-gradient(135deg, #FFB366 0%, #FFE066 100%);
+    box-shadow: 0 2px 8px 0 rgba(255, 179, 102, 0.3);
+  }
+  .theme-retro-gurl .task-row:nth-child(6n+4) input[type="checkbox"] { 
+    background: linear-gradient(135deg, #66B3FF 0%, #B366FF 100%);
+    box-shadow: 0 2px 8px 0 rgba(102, 179, 255, 0.3);
+  }
+  .theme-retro-gurl .task-row:nth-child(6n+5) input[type="checkbox"] { 
+    background: linear-gradient(135deg, #B366FF 0%, #FF66CC 100%);
+    box-shadow: 0 2px 8px 0 rgba(179, 102, 255, 0.3);
+  }
+  .theme-retro-gurl .task-row:nth-child(6n+6) input[type="checkbox"] { 
+    background: linear-gradient(135deg, #FF7F7F 0%, #FFE066 100%);
+    box-shadow: 0 2px 8px 0 rgba(255, 127, 127, 0.3);
+  }
+  
+  .theme-retro-gurl input[type="checkbox"]:hover {
+    transform: scale(1.15) rotate(2deg);
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+  
+  .theme-retro-gurl input[type="checkbox"]:active {
+    transform: scale(0.95);
+    transition: all 150ms ease;
   }
   
   .theme-retro-gurl input[type="checkbox"]:checked {
-    background-color: #d04f99;
-    border-color: #d04f99;
+    transform: scale(1.05);
   }
   
   .theme-retro-gurl input[type="checkbox"]:checked::after {
     content: "✓";
     color: #ffffff;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: 700;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -362,9 +469,250 @@
     line-height: 1;
   }
   
+  /* Task text styling with enhanced typography */
+  .theme-retro-gurl .task-row label span {
+    flex: 1;
+    font-size: 1.125rem; /* Larger for better iPad readability */
+    font-weight: 500;
+    color: #1f2937;
+    line-height: 1.5; /* Better line height for readability */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    letter-spacing: 0.01em; /* Subtle letter spacing for clarity */
+  }
+  
+  /* Completed task styling */
   .theme-retro-gurl .task-row input[type="checkbox"]:checked + span {
     text-decoration: line-through;
-    opacity: 0.8;
+    opacity: 0.7;
+  }
+  
+  /* Enhanced button styling optimized for performance */
+  .theme-retro-gurl button,
+  .theme-retro-gurl .btn {
+    background: linear-gradient(135deg, #66E0B3 0%, #66D9EF 100%);
+    color: white;
+    font-weight: 500;
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 250ms ease;
+    position: relative;
+    overflow: hidden;
+    will-change: transform;
+    contain: layout style paint;
+  }
+  
+  .theme-retro-gurl button::before,
+  .theme-retro-gurl .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 400ms ease;
+    pointer-events: none;
+  }
+  
+  .theme-retro-gurl button:hover,
+  .theme-retro-gurl .btn:hover {
+    background: linear-gradient(135deg, #FF7F7F 0%, #FF66CC 100%);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.25);
+  }
+  
+  .theme-retro-gurl button:hover::before,
+  .theme-retro-gurl .btn:hover::before {
+    left: 100%;
+  }
+  
+  .theme-retro-gurl button:active,
+  .theme-retro-gurl .btn:active {
+    transform: translateY(0) scale(0.98);
+    transition: all 150ms ease;
+  }
+  
+  /* Navigation links */
+  .theme-retro-gurl .nav-link {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    color: #1f2937; /* Darker for better contrast */
+    font-weight: 500;
+    transition: all 200ms ease;
+    text-decoration: none;
+  }
+  
+  .theme-retro-gurl .nav-link:hover {
+    background: linear-gradient(135deg, #FF7F7F 0%, #FF66CC 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Enhanced navigation buttons with better typography and performance */
+  .theme-retro-gurl .nav-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.25rem;
+    border-radius: 12px;
+    font-weight: 700; /* Stronger weight for prominence */
+    font-size: 0.9375rem; /* Slightly larger for better readability */
+    transition: transform 200ms ease, box-shadow 200ms ease;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.025em; /* Subtle letter spacing */
+    will-change: transform;
+  }
+  
+  .theme-retro-gurl .nav-button-primary {
+    background: linear-gradient(135deg, #66E0B3 0%, #66D9EF 100%);
+    color: white;
+  }
+  
+  .theme-retro-gurl .nav-button-secondary {
+    background: rgba(255, 255, 255, 0.95);
+    color: #1f2937;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+  
+  .theme-retro-gurl .nav-button:hover {
+    background: linear-gradient(135deg, #FF7F7F 0%, #FF66CC 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Date navigation */
+  .theme-retro-gurl .date-nav-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1f2937;
+    transition: all 200ms ease;
+    text-decoration: none;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .theme-retro-gurl .date-nav-arrow:hover {
+    background: linear-gradient(135deg, #FF7F7F 0%, #FF66CC 100%);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+  }
+  
+  .theme-retro-gurl .date-display {
+    min-width: 14rem;
+    padding: 0.75rem 1.25rem;
+  }
+  
+  /* Better spacing for navigation section */
+  .theme-retro-gurl nav {
+    margin-bottom: 1.5rem;
+    padding: 1rem 0 !important;
+  }
+  
+  .theme-retro-gurl .today-button {
+    padding: 0.625rem 1.25rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1f2937;
+    font-weight: 600; /* Stronger weight */
+    font-size: 0.9375rem; /* Slightly larger */
+    text-decoration: none;
+    transition: all 200ms ease;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.025em; /* Consistent with other buttons */
+  }
+  
+  .theme-retro-gurl .today-button:hover {
+    background: linear-gradient(135deg, #FF7F7F 0%, #FF66CC 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Optimized keyframe animations for performance */
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 20px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+  @keyframes checkBounce {
+    0% { transform: scale3d(1.1, 1.1, 1); }
+    50% { transform: scale3d(1.25, 1.25, 1); }
+    100% { transform: scale3d(1.1, 1.1, 1); }
+  }
+  
+  @keyframes checkmarkAppear {
+    0% { 
+      opacity: 0;
+      transform: translate3d(-50%, -50%, 0) scale3d(0.5, 0.5, 1);
+    }
+    100% { 
+      opacity: 1;
+      transform: translate3d(-50%, -50%, 0) scale3d(1, 1, 1);
+    }
+  }
+  
+  @keyframes fadeInGlass {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Apply optimized fade-in animation to glass container */
+  .theme-retro-gurl .glass-container {
+    animation: fadeInGlass 500ms ease-out;
+  }
+  
+  /* Performance optimization: Reduce animations on slower devices */
+  @media (prefers-reduced-motion: reduce) {
+    .theme-retro-gurl .task-row {
+      animation: none;
+    }
+    
+    .theme-retro-gurl .glass-container {
+      animation: none;
+    }
+    
+    .theme-retro-gurl input[type="checkbox"]:checked {
+      animation: none;
+    }
+    
+    .theme-retro-gurl input[type="checkbox"]:checked::after {
+      animation: none;
+    }
+    
+    .theme-retro-gurl .task-row label::before,
+    .theme-retro-gurl button::before,
+    .theme-retro-gurl .btn::before {
+      display: none;
+    }
   }
 }
 
