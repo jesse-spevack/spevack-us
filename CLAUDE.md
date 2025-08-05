@@ -110,7 +110,8 @@ The application uses server-side timezone support to ensure dates display correc
 before_action :set_user_timezone
 
 def set_user_timezone
-  Time.zone = cookies[:timezone] || "UTC"
+  tz = cookies[:timezone]
+  Time.zone = tz.present? && ActiveSupport::TimeZone[tz] ? tz : "UTC"
 end
 
 # Date parsing respects user timezone
