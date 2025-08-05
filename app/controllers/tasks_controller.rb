@@ -3,7 +3,7 @@ class TasksController < ApplicationController
 
   before_action :require_child
   before_action :set_date
-  before_action :set_is_today
+  before_action :set_today
 
   def index
     @child = current_child
@@ -12,7 +12,7 @@ class TasksController < ApplicationController
 
   private
 
-  def set_is_today
-    @is_today = @date == Time.zone.today
+  def set_today
+    @today = @date == Time.zone.today
   end
 end

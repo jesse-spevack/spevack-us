@@ -27,7 +27,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
           </svg>
         <% end %>
-        <% unless @is_today %>
+        <% unless @today %>
           <%= link_to "Today", tasks_path, class: "today-button" %>
         <% end %>
       </nav>
@@ -57,7 +57,7 @@
     </h2>
     <%= link_to "→", tasks_path(date: date_param_string(@date + 1)), 
         class: "nav-link text-2xl p-2 #{'invisible' if @date >= Time.zone.today}" %>
-    <% unless @is_today %>
+    <% unless @today %>
       <%= link_to "Today", tasks_path, 
           class: "btn px-3 md:px-4 py-2 text-sm min-h-11" %>
     <% end %>
