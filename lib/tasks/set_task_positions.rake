@@ -7,33 +7,34 @@ namespace :tasks do
         "wake up" => 10,
         "get dressed" => 20,
         "make bed" => 30,
-        "brush teeth" => 40,
+        "eat breakfast" => 40,
         "brush teeth/hair" => 50,
-        "eat breakfast" => 60,
-        "pack bag" => 70,
-        "get in the car" => 80
+        "pack bag" => 60,
+        "get in the car" => 70
       },
       "afternoon" => {
         "unpack" => 10,
         "eat snack" => 20,
-        "do homework" => 30,
-        "complete math hw" => 40,
-        "self-study (typing, math facts)" => 50,
-        "clean room" => 60,
-        "take out trash" => 70,
-        "run light load of laundry" => 80
+        "clean table" => 30,
+        "piano practice" => 40,
+        "complete math hw" => 50,
+        "self-study (typing, math facts)" => 60,
+        "do homework" => 70,
+        "clean room" => 80,
+        "take out trash" => 90,
+        "run light load of laundry" => 100
       },
       "evening" => {
         "set table" => 10,
         "set the table" => 10,  # Duplicate name variation
         "clear the table" => 20,
         "clean table" => 20,    # Duplicate name variation
-        "complete reading hw" => 30,
-        "shower" => 40,
-        "get pjs on" => 50,
-        "brush teeth" => 60,
-        "pack lunch" => 70,
-        "take vitamins" => 80
+        "take vitamins" => 30,
+        "complete reading hw" => 40,
+        "shower" => 50,
+        "get pjs on" => 60,
+        "brush teeth" => 70,
+        "pack lunch" => 80
       }
     }
 
