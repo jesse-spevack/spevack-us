@@ -2,12 +2,29 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
+  before_action :set_user_timezone
   helper_method :current_child, :theme_class
 
   private
 
+  def set_user_timezone
+    tz = cookies[:timezone]
+    Time.zone = tz.present? && ActiveSupport::TimeZone[tz] ? tz : "UTC"
+  end
+
   def set_date
-    @date = params[:date] ? Date.parse(params[:date]) : Date.current
+    if params[:date].present?
+      begin
+        # Parse the date string in the user's timezone
+        @date = Time.zone.parse(params[:date]).to_date
+      rescue ArgumentError
+        # Fall back to today if parsing fails
+        @date = Time.zone.today
+      end
+    else
+      # Get "today" in the user's timezone
+      @date = Time.zone.today
+    end
   end
 
   def current_child

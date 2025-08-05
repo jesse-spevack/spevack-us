@@ -1,10 +1,14 @@
 class ReviewsController < ApplicationController
+  include TimezoneHelper
+
   before_action :require_child
 
   def show
     @child = current_child
-    @week_start = (params[:week_start]&.to_date || Date.current).beginning_of_week
-    @week_end = @week_start.end_of_week
+    # Parse the week start date in user's timezone
+    base_date = params[:week_start].present? ? Time.zone.parse(params[:week_start]).to_date : Time.zone.today
+    @week_start = week_start_date(base_date, :sunday)
+    @week_end = week_end_date(base_date, :sunday)
 
     @summary = WeeklySummary.get(@child, @week_start)
   end

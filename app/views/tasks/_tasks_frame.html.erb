@@ -11,7 +11,7 @@
             <h3 class="text-base font-semibold uppercase tracking-wider mb-4 capitalize"><%= time_period %></h3>
             <% tasks_for_period.each do |task| %>
               <% completion = task.task_completion_for_day(@date) %>
-              <%= form_with url: completion ? task_task_completion_path(task, completion, date: @date) : task_task_completions_path(task, date: @date),
+              <%= form_with url: completion ? task_task_completion_path(task, completion, date: date_param_string(@date)) : task_task_completions_path(task, date: date_param_string(@date)),
                           method: completion ? :delete : :post,
                           local: false,
                           class: "task-row",
@@ -40,7 +40,7 @@
             <h3 class="text-base font-normal uppercase tracking-wider mb-6 pb-2 border-b border-muted capitalize"><%= time_period %></h3>
             <% tasks_for_period.each do |task| %>
               <% completion = task.task_completion_for_day(@date) %>
-              <%= form_with url: completion ? task_task_completion_path(task, completion, date: @date) : task_task_completions_path(task, date: @date),
+              <%= form_with url: completion ? task_task_completion_path(task, completion, date: date_param_string(@date)) : task_task_completions_path(task, date: date_param_string(@date)),
                           method: completion ? :delete : :post,
                           local: false,
                           class: "task-row",
