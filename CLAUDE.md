@@ -327,3 +327,10 @@ Before committing Rails changes:
 3. Run `bundle exec rubocop` to check code style
 4. Check `db/schema.rb` reflects expected changes
 5. Verify no deprecation warnings in server/console output
+
+### Pre-Push Checklist
+Before pushing to GitHub:
+1. Run `bundle exec rubocop` to ensure all code follows style guidelines
+2. Fix any offenses with `bundle exec rubocop -a` (auto-correct)
+3. Review auto-corrections to ensure they're appropriate
+4. Run tests again if rubocop made changes
