@@ -13,8 +13,6 @@ class TasksController < ApplicationController
   private
 
   def set_is_today
-    # The client-side JavaScript will determine the actual "today" in user's timezone
-    # This is used for server-side logic and as a fallback
-    @is_today = @date == Date.current
+    @is_today = @date == Time.zone.today
   end
 end

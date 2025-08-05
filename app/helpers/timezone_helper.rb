@@ -1,6 +1,5 @@
 module TimezoneHelper
-  # Format a date for display, considering it represents a calendar date
-  # The actual timezone conversion happens client-side
+  # Format a date for display
   def format_date_for_display(date, format = :long)
     return "" if date.nil?
 
@@ -16,10 +15,9 @@ module TimezoneHelper
     end
   end
 
-  # Check if a given date represents "today" from the server's perspective
-  # Client-side JavaScript will handle the actual local timezone comparison
+  # Check if a given date represents "today" in user's timezone
   def is_today?(date)
-    date == Date.current
+    date == Time.zone.today
   end
 
   # Get the date string in YYYY-MM-DD format
@@ -27,52 +25,8 @@ module TimezoneHelper
     date.strftime("%Y-%m-%d")
   end
 
-  # Generate data attributes for timezone-aware elements
-  def timezone_data_attributes(date_or_time)
-    return {} if date_or_time.nil?
-
-    {
-      "data-utc-date" => date_or_time.respond_to?(:iso8601) ? date_or_time.iso8601 : date_or_time.to_s,
-      "data-timezone-target" => "date"
-    }
-  end
-
-  # Generate data attributes for time display
-  def timezone_time_attributes(time)
-    return {} if time.nil?
-
-    {
-      "data-utc-date" => time.iso8601,
-      "data-timezone-target" => "time",
-      "data-format" => "time"
-    }
-  end
-
-  # Generate data attributes for full datetime display
-  def timezone_datetime_attributes(datetime)
-    return {} if datetime.nil?
-
-    {
-      "data-utc-date" => datetime.iso8601,
-      "data-timezone-target" => "datetime",
-      "data-format" => "datetime"
-    }
-  end
-
-  # Helper to add timezone controller to a page/section
-  def with_timezone_support(options = {})
-    defaults = {
-      "data-controller" => "timezone",
-      "data-timezone-cache-key-value" => "chore_tracker_timezone",
-      "data-timezone-fallback-warning-value" => "false"
-    }
-
-    defaults.merge(options)
-  end
-
   # Get the start of the current week (for weekly reviews)
-  # Returns the date as-is since actual timezone handling is client-side
-  def week_start_date(date = Date.current, start_day = :sunday)
+  def week_start_date(date = Time.zone.today, start_day = :sunday)
     # Ruby's beginning_of_week uses Monday by default
     if start_day == :sunday
       date.beginning_of_week(:sunday)
@@ -82,7 +36,7 @@ module TimezoneHelper
   end
 
   # Get the end of the current week
-  def week_end_date(date = Date.current, start_day = :sunday)
+  def week_end_date(date = Time.zone.today, start_day = :sunday)
     week_start_date(date, start_day) + 6.days
   end
 
@@ -95,11 +49,5 @@ module TimezoneHelper
     else
       "#{start_date.strftime('%B %d')} - #{end_date.strftime('%B %d, %Y')}"
     end
-  end
-
-  # Helper to check if browser timezone should be used
-  def use_browser_timezone?
-    # Always true for this implementation since we're doing client-side conversion
-    true
   end
 end

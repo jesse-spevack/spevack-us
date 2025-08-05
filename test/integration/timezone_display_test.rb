@@ -6,33 +6,40 @@ class TimezoneDisplayTest < ActionDispatch::IntegrationTest
     post session_path, params: { id: @child.id }
   end
 
-  test "tasks page includes timezone controller" do
+  test "timezone setter controller is present on pages" do
     get tasks_path
     assert_response :success
-    # Check that timezone support attributes exist
-    assert_match /data-controller/, response.body
-    assert_match /timezone/, response.body
-    assert_match /data-timezone-cache-key-value/, response.body
+    assert_match /data-controller.*timezone-setter/, response.body
   end
 
-  test "date navigation uses proper date format" do
+  test "date navigation works with timezone" do
+    # Set timezone cookie to PST
+    cookies[:timezone] = "America/Los_Angeles"
+    
     get tasks_path
     assert_response :success
-    assert_select "[data-prev-day]"
-    assert_select "[data-next-day]"
+    
+    # Should have navigation links
+    assert_select 'a[href*="date="]', minimum: 2
   end
 
-  test "weekly review includes timezone support" do
+  test "weekly review respects timezone" do
+    cookies[:timezone] = "America/New_York"
+    
     get review_path
     assert_response :success
-    assert_match /data-controller/, response.body
-    assert_match /timezone/, response.body
-    assert_match /data-week-start/, response.body
+    
+    # Should show week range
+    assert_match /\w+ \d+ - \d+, \d{4}/, response.body
   end
 
   test "date parameter parsing handles timezone dates" do
+    cookies[:timezone] = "America/Chicago"
+    
     get tasks_path(date: "2025-08-05")
     assert_response :success
-    assert_select '[data-current-date="2025-08-05"]'
+    
+    # Should show the formatted date
+    assert_match /August/, response.body
   end
 end

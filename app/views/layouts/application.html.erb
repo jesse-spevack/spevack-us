@@ -22,7 +22,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="<%= theme_class %> <%= 'bg-background' unless theme_class == 'theme-retro-gurl' %> text-foreground">
+  <body class="<%= theme_class %> <%= 'bg-background' unless theme_class == 'theme-retro-gurl' %> text-foreground" data-controller="timezone-setter">
     <main>
       <%= yield %>
     </main>
