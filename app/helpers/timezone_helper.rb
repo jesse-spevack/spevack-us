@@ -16,7 +16,7 @@ module TimezoneHelper
   end
 
   # Check if a given date represents "today" in user's timezone
-  def is_today?(date)
+  def today?(date)
     date == Time.zone.today
   end
 

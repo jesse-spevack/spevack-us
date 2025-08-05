@@ -319,6 +319,18 @@ Position guidelines:
   # BAD
   [ 0, 6 ].include?(date.wday)
   ```
+- **Method naming**: Use Ruby conventions for predicate methods
+  ```ruby
+  # GOOD - no "is_" prefix for predicate methods
+  def today?(date)
+    date == Time.zone.today
+  end
+  
+  # BAD - avoid "is_" prefix
+  def is_today?(date)
+    date == Time.zone.today
+  end
+  ```
 
 ### Pre-Commit Checklist
 Before committing Rails changes:
