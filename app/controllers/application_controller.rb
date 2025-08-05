@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_user_timezone
-    Time.zone = cookies[:timezone] || 'UTC'
+    Time.zone = cookies[:timezone] || "UTC"
   end
 
   def set_date
