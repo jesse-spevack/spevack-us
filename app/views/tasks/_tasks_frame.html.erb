@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "tasks" do %>
+<%= turbo_frame_tag "tasks", data: { current_date: date_param_string(@date) } do %>
   <% if theme_class == "theme-retro-gurl" %>
     <div class="tasks-content">
       <p class="intro-text">
@@ -11,7 +11,7 @@
             <h3 class="text-base font-semibold uppercase tracking-wider mb-4 capitalize"><%= time_period %></h3>
             <% tasks_for_period.each do |task| %>
               <% completion = task.task_completion_for_day(@date) %>
-              <%= form_with url: completion ? task_task_completion_path(task, completion, date: @date) : task_task_completions_path(task, date: @date),
+              <%= form_with url: completion ? task_task_completion_path(task, completion, date: date_param_string(@date)) : task_task_completions_path(task, date: date_param_string(@date)),
                           method: completion ? :delete : :post,
                           local: false,
                           class: "task-row",
@@ -20,7 +20,7 @@
                   <input type="checkbox" 
                          <%= 'checked' if completion %>
                          onchange="this.form.requestSubmit()">
-                  <span class="<%= 'line-through' if completion %>"><%= task.name.capitalize %></span>
+                  <span class="<%= 'line-through' if completion %>" <%= completion ? timezone_datetime_attributes(completion.created_at) : {} %>><%= task.name.capitalize %></span>
                 </label>
               <% end %>
             <% end %>
@@ -40,7 +40,7 @@
             <h3 class="text-base font-normal uppercase tracking-wider mb-6 pb-2 border-b border-muted capitalize"><%= time_period %></h3>
             <% tasks_for_period.each do |task| %>
               <% completion = task.task_completion_for_day(@date) %>
-              <%= form_with url: completion ? task_task_completion_path(task, completion, date: @date) : task_task_completions_path(task, date: @date),
+              <%= form_with url: completion ? task_task_completion_path(task, completion, date: date_param_string(@date)) : task_task_completions_path(task, date: date_param_string(@date)),
                           method: completion ? :delete : :post,
                           local: false,
                           class: "task-row",
@@ -50,7 +50,7 @@
                          <%= 'checked' if completion %>
                          onchange="this.form.requestSubmit()"
                          class="mr-6 flex-shrink-0">
-                  <span class="text-lg font-light flex-grow <%= 'line-through text-muted-foreground' if completion %>"><%= task.name.capitalize %></span>
+                  <span class="text-lg font-light flex-grow <%= 'line-through text-muted-foreground' if completion %>" <%= completion ? timezone_datetime_attributes(completion.created_at) : {} %>><%= task.name.capitalize %></span>
                 </label>
               <% end %>
             <% end %>

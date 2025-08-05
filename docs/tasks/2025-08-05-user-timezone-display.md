@@ -58,24 +58,24 @@ The timezone feature converts UTC-stored data to user's local timezone for displ
   - **Details**: Use local timezone for "today" comparison instead of server timezone
 
 ### Phase 3: View Updates (P1)
-- [ ] **3.1** Update tasks index view with timezone controller `Medium`
+- [x] **3.1** Update tasks index view with timezone controller `Medium`
   - **Dependencies**: Requires 1.2, 2.2
   - **Parallel with**: 3.2, 3.3
   - **Files**: `app/views/tasks/index.html.erb`
   - **Testing**: Manual testing of date display and navigation
   - **Details**: Add timezone data attributes, update date formatting, fix navigation links
 
-- [ ] **3.2** Update tasks frame for completion timestamps `Simple`
+- [x] **3.2** Update tasks frame for completion timestamps `Simple`
   - **Dependencies**: Requires 1.1, 2.2
   - **Parallel with**: 3.1, 3.3
   - **Files**: `app/views/tasks/_tasks_frame.html.erb`
   - **Testing**: Test task completion display in local timezone
   - **Details**: Show completion times in local timezone, ensure completion appears on correct local date
 
-- [ ] **3.3** Update weekly review for local week boundaries `Medium`
+- [x] **3.3** Update weekly review for local week boundaries `Medium`
   - **Dependencies**: Requires 2.1, 2.2
   - **Parallel with**: 3.1, 3.2
-  - **Files**: `app/views/reviews/show.html.erb`
+  - **Files**: `app/views/reviews/show.html.erb`, `app/controllers/reviews_controller.rb`
   - **Testing**: Test week boundary calculations across timezones
   - **Details**: Calculate week start/end in local timezone, update date range displays
 
@@ -128,6 +128,10 @@ The timezone feature converts UTC-stored data to user's local timezone for displ
 - `docs/tasks/2025-08-05-user-timezone-display.md` - Updated task completion status
 - `app/controllers/application_controller.rb` - Added timezone-aware date parsing and helper methods
 - `app/controllers/tasks_controller.rb` - Included TimezoneHelper module
+- `app/views/tasks/index.html.erb` - Added timezone controller and data attributes
+- `app/views/tasks/_tasks_frame.html.erb` - Added timezone attributes for completions
+- `app/controllers/reviews_controller.rb` - Added timezone-aware week calculations
+- `app/views/reviews/show.html.erb` - Added timezone support for weekly review dates
 
 ## Development Notes
 

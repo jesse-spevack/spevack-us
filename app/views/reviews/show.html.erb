@@ -1,8 +1,8 @@
-<div class="max-w-2xl mx-auto p-4">
+<div class="max-w-2xl mx-auto p-4" <%= with_timezone_support("data-week-start" => date_param_string(@week_start)) %>>
   <header class="text-center mb-8">
     <h2 class="text-xl font-medium mt-2"><%= @child.name %>'s Week in Review</h2>
-    <p class="text-muted-foreground mt-1">
-      <%= @week_start.strftime("%B %d") %> - <%= @week_end.strftime("%d, %Y") %>
+    <p class="text-muted-foreground mt-1" <%= timezone_data_attributes(@week_start) %>>
+      <%= format_week_range(@week_start, @week_end) %>
     </p>
   </header>
   

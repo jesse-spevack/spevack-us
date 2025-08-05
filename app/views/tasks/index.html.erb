@@ -1,3 +1,4 @@
+<div <%= with_timezone_support("data-current-date" => date_param_string(@date)) %>>
 <% if theme_class == "theme-retro-gurl" %>
   <div class="container">
     <div class="glass-container">
@@ -12,23 +13,23 @@
       </header>
 
       <nav class="flex justify-center items-center gap-4 p-4">
-        <%= link_to tasks_path(date: @date - 1), class: "date-nav-arrow" do %>
+        <%= link_to tasks_path(date: date_param_string(@date - 1)), class: "date-nav-arrow", "data-prev-day" => true do %>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
           </svg>
         <% end %>
         <div class="date-display">
-          <h2 class="text-lg font-medium text-center">
-            <%= @date.strftime("%A, %B %d") %>
+          <h2 class="text-lg font-medium text-center" <%= timezone_data_attributes(@date) %>>
+            <%= format_date_for_display(@date, :long) %>
           </h2>
         </div>
-        <%= link_to tasks_path(date: @date + 1), class: "date-nav-arrow #{'opacity-30 pointer-events-none' if @date >= Date.current}" do %>
+        <%= link_to tasks_path(date: date_param_string(@date + 1)), class: "date-nav-arrow #{'opacity-30 pointer-events-none' if @date >= Date.current}", "data-next-day" => true do %>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
           </svg>
         <% end %>
         <% unless @is_today %>
-          <%= link_to "Today", tasks_path, class: "today-button" %>
+          <%= link_to "Today", tasks_path, class: "today-button", "data-today-button" => true %>
         <% end %>
       </nav>
 
@@ -50,18 +51,19 @@
   </header>
 
   <nav class="flex justify-center items-center gap-3 md:gap-6 p-4 md:p-8 pb-3 md:pb-6">
-    <%= link_to "←", tasks_path(date: @date - 1), 
-        class: "nav-link text-2xl p-2" %>
-    <h2 class="text-lg md:text-xl font-light min-w-40 md:min-w-52 text-center">
-      <%= @date.strftime("%A, %B %d") %>
+    <%= link_to "←", tasks_path(date: date_param_string(@date - 1)), 
+        class: "nav-link text-2xl p-2", "data-prev-day" => true %>
+    <h2 class="text-lg md:text-xl font-light min-w-40 md:min-w-52 text-center" <%= timezone_data_attributes(@date) %>>
+      <%= format_date_for_display(@date, :long) %>
     </h2>
-    <%= link_to "→", tasks_path(date: @date + 1), 
-        class: "nav-link text-2xl p-2 #{'invisible' if @date >= Date.current}" %>
+    <%= link_to "→", tasks_path(date: date_param_string(@date + 1)), 
+        class: "nav-link text-2xl p-2 #{'invisible' if @date >= Date.current}", "data-next-day" => true %>
     <% unless @is_today %>
       <%= link_to "Today", tasks_path, 
-          class: "btn px-3 md:px-4 py-2 text-sm min-h-11" %>
+          class: "btn px-3 md:px-4 py-2 text-sm min-h-11", "data-today-button" => true %>
     <% end %>
   </nav>
 
   <%= render "tasks_frame" %>
 <% end %>
+</div>
