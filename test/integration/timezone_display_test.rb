@@ -18,8 +18,8 @@ class TimezoneDisplayTest < ActionDispatch::IntegrationTest
   test "date navigation uses proper date format" do
     get tasks_path
     assert_response :success
-    assert_select '[data-prev-day]'
-    assert_select '[data-next-day]'
+    assert_select "[data-prev-day]"
+    assert_select "[data-next-day]"
   end
 
   test "weekly review includes timezone support" do

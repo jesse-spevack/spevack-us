@@ -3,7 +3,7 @@ module TimezoneHelper
   # The actual timezone conversion happens client-side
   def format_date_for_display(date, format = :long)
     return "" if date.nil?
-    
+
     case format
     when :long
       date.strftime("%A, %B %d")
@@ -30,7 +30,7 @@ module TimezoneHelper
   # Generate data attributes for timezone-aware elements
   def timezone_data_attributes(date_or_time)
     return {} if date_or_time.nil?
-    
+
     {
       "data-utc-date" => date_or_time.respond_to?(:iso8601) ? date_or_time.iso8601 : date_or_time.to_s,
       "data-timezone-target" => "date"
@@ -40,7 +40,7 @@ module TimezoneHelper
   # Generate data attributes for time display
   def timezone_time_attributes(time)
     return {} if time.nil?
-    
+
     {
       "data-utc-date" => time.iso8601,
       "data-timezone-target" => "time",
@@ -51,7 +51,7 @@ module TimezoneHelper
   # Generate data attributes for full datetime display
   def timezone_datetime_attributes(datetime)
     return {} if datetime.nil?
-    
+
     {
       "data-utc-date" => datetime.iso8601,
       "data-timezone-target" => "datetime",
@@ -66,7 +66,7 @@ module TimezoneHelper
       "data-timezone-cache-key-value" => "chore_tracker_timezone",
       "data-timezone-fallback-warning-value" => "false"
     }
-    
+
     defaults.merge(options)
   end
 
@@ -89,7 +89,7 @@ module TimezoneHelper
   # Format a week range for display
   def format_week_range(start_date, end_date = nil)
     end_date ||= start_date + 6.days
-    
+
     if start_date.month == end_date.month
       "#{start_date.strftime('%B %d')} - #{end_date.strftime('%d, %Y')}"
     else

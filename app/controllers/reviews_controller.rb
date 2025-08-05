@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   include TimezoneHelper
-  
+
   before_action :require_child
 
   def show

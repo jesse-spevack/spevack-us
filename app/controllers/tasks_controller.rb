@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   include TimezoneHelper
-  
+
   before_action :require_child
   before_action :set_date
   before_action :set_is_today
