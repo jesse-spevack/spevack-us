@@ -99,6 +99,36 @@ This application has implemented Phase 1 (minimum working app) and Phase 2.1-2.2
 - Document common commands in README
 - REPL-style interfaces only if significantly better than direct commands
 
+### Timezone Handling
+The application uses server-side timezone support to ensure dates display correctly for users:
+
+```ruby
+# Timezone is automatically detected and stored in a cookie
+# Rails handles all timezone conversions server-side
+
+# In ApplicationController
+before_action :set_user_timezone
+
+def set_user_timezone
+  Time.zone = cookies[:timezone] || "UTC"
+end
+
+# Date parsing respects user timezone
+def set_date
+  @date = params[:date].present? ? Time.zone.parse(params[:date]).to_date : Time.zone.today
+end
+
+# Check if date is "today" in user's timezone
+@is_today = @date == Time.zone.today
+```
+
+Timezone guidelines:
+- Browser timezone is detected once via minimal JavaScript
+- Stored in permanent cookie (1 year expiration)
+- No page reloads for existing users
+- Falls back to UTC if detection fails
+- All dates stored as UTC in database
+
 ### Task Position Management
 Tasks can be ordered within time periods using the position field:
 
@@ -166,11 +196,11 @@ Position guidelines:
   ```ruby
   # ApplicationController pattern
   def current_child
-    @current_child ||= Child.find_by(id: cookies[:child_id])
+    @current_child ||= Child.find_by(id: session[:child_id])
   end
 
   def require_child
-    redirect_to children_path unless current_child
+    redirect_to new_session_path unless current_child
   end
   ```
 - **Controller organization**: Keep controllers thin, move logic to models and before_actions
