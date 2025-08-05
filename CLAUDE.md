@@ -99,6 +99,37 @@ This application has implemented Phase 1 (minimum working app) and Phase 2.1-2.2
 - Document common commands in README
 - REPL-style interfaces only if significantly better than direct commands
 
+### Task Position Management
+Tasks can be ordered within time periods using the position field:
+
+```ruby
+# View current positions for a child
+child = Child.find_by(name: "Jake")
+child.tasks.morning.ordered.pluck(:name, :position)
+
+# Update single task position
+task = Task.find_by(name: "brush teeth", child: child)
+task.update!(position: 30)
+
+# Bulk reorder tasks for a time period
+child.tasks.morning.find_by(name: "get dressed").update!(position: 10)
+child.tasks.morning.find_by(name: "make bed").update!(position: 20)
+child.tasks.morning.find_by(name: "brush teeth").update!(position: 30)
+child.tasks.morning.find_by(name: "pack bag").update!(position: 40)
+
+# Reset all positions to alphabetical (position 0)
+child.tasks.update_all(position: 0)
+
+# Run rake task to set positions for all children
+bin/rails tasks:set_positions
+```
+
+Position guidelines:
+- Use increments of 10 to allow easy insertions
+- Position 0 tasks sort alphabetically after positioned tasks
+- No automatic reordering on insert/delete
+- Positions are managed manually via console
+
 ### Feature Prioritization
 - Daily task view → Weekly review → Task creation → Themes
 - Beautiful defaults before customization

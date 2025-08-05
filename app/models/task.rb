@@ -11,7 +11,7 @@ class Task < ApplicationRecord
 
   enum :time_of_day, { morning: 0, afternoon: 1, evening: 2 }
 
-  scope :ordered, -> { order(:time_of_day, :name) }
+  scope :ordered, -> { order(:time_of_day, :position, :name) }
 
   def due_on?(date)
     case frequency

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_23_123432) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_05_023921) do
   create_table "children", force: :cascade do |t|
     t.string "name", null: false
     t.string "theme", default: "default"
@@ -37,7 +37,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_23_123432) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position", default: 0, null: false
     t.index ["child_id", "active"], name: "index_tasks_on_child_id_and_active"
+    t.index ["child_id", "time_of_day", "position", "name"], name: "index_tasks_on_child_id_and_time_of_day_and_position_and_name"
     t.index ["child_id"], name: "index_tasks_on_child_id"
     t.index ["time_of_day"], name: "index_tasks_on_time_of_day"
   end
