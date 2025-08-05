@@ -2,12 +2,25 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
-  helper_method :current_child, :theme_class
+  helper_method :current_child, :theme_class, :user_timezone
 
   private
 
   def set_date
-    @date = params[:date] ? Date.parse(params[:date]) : Date.current
+    # Date parameters are expected to be in YYYY-MM-DD format representing the user's local date
+    # We parse them as-is since they represent calendar dates, not specific moments in time
+    if params[:date].present?
+      begin
+        @date = Date.parse(params[:date])
+      rescue ArgumentError
+        # Fall back to current date if parsing fails
+        @date = Date.current
+      end
+    else
+      # For "today", we use the server's current date
+      # The client-side JavaScript will handle displaying this correctly in local timezone
+      @date = Date.current
+    end
   end
 
   def current_child
@@ -31,5 +44,11 @@ class ApplicationController < ActionController::Base
     else
       "theme-default"
     end
+  end
+
+  def user_timezone
+    # This will be set by JavaScript and sent via a header or cookie
+    # For now, we'll use UTC as the default
+    request.headers["X-User-Timezone"] || cookies[:user_timezone] || "UTC"
   end
 end

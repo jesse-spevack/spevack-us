@@ -39,19 +39,19 @@ The timezone feature converts UTC-stored data to user's local timezone for displ
   - **Details**: Cache detected timezone, provide data attributes for templates
 
 ### Phase 2: Backend Date Logic (P1)  
-- [ ] **2.1** Update ApplicationController date parsing for local timezone `Medium`
+- [x] **2.1** Update ApplicationController date parsing for local timezone `Medium`
   - **Dependencies**: Requires 1.1, 1.2
   - **Files**: `app/controllers/application_controller.rb`
   - **Testing**: Unit tests for date parameter parsing with timezone
   - **Details**: Parse date params as local dates, convert to UTC for database queries
 
-- [ ] **2.2** Create Rails helper for timezone-aware formatting `Simple`
+- [x] **2.2** Create Rails helper for timezone-aware formatting `Simple`
   - **Dependencies**: None
   - **Files**: `app/helpers/timezone_helper.rb`
   - **Testing**: Unit tests for helper methods
   - **Details**: Methods for formatting UTC dates as local, calculating local "today"
 
-- [ ] **2.3** Update TasksController "today" logic `Simple`
+- [x] **2.3** Update TasksController "today" logic `Simple`
   - **Dependencies**: Requires 2.1, 2.2
   - **Files**: `app/controllers/tasks_controller.rb`
   - **Testing**: Test @is_today calculation across timezone boundaries
@@ -122,9 +122,12 @@ The timezone feature converts UTC-stored data to user's local timezone for displ
 ### Created Files
 - `app/javascript/utils/timezone_utils.js` - JavaScript utilities for timezone detection and date conversion
 - `app/javascript/controllers/timezone_controller.js` - Stimulus controller for managing timezone detection and caching
+- `app/helpers/timezone_helper.rb` - Rails helper methods for timezone-aware date formatting
 
 ### Modified Files
 - `docs/tasks/2025-08-05-user-timezone-display.md` - Updated task completion status
+- `app/controllers/application_controller.rb` - Added timezone-aware date parsing and helper methods
+- `app/controllers/tasks_controller.rb` - Included TimezoneHelper module
 
 ## Development Notes
 
