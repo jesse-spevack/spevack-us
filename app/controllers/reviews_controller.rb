@@ -12,11 +12,15 @@ class ReviewsController < ApplicationController
 
     # DEBUG: Log what we're actually calculating
     Rails.logger.error "=== WEEKLY REVIEW DEBUG ==="
+    Rails.logger.error "cookies[:timezone]: #{cookies[:timezone].inspect}"
+    Rails.logger.error "Time.zone: #{Time.zone}"
+    Rails.logger.error "Time.zone.name: #{Time.zone.name}"
     Rails.logger.error "params[:week_start]: #{params[:week_start].inspect}"
+    Rails.logger.error "Time.zone.today: #{Time.zone.today}"
+    Rails.logger.error "Time.zone.now: #{Time.zone.now}"
     Rails.logger.error "base_date: #{base_date}"
     Rails.logger.error "@week_start: #{@week_start}"
     Rails.logger.error "@week_end: #{@week_end}"
-    Rails.logger.error "Time.zone.today: #{Time.zone.today}"
     Rails.logger.error "=========================="
 
     @summary = WeeklySummary.get(@child, @week_start)
