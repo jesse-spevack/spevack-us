@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
   def show
     @child = current_child
     # Parse the week start date in user's timezone
-    base_date = params[:week_start].present? ? Time.zone.parse(params[:week_start]).to_date : Date.current.beginning_of_week - 7.days
+    base_date = params[:week_start].present? ? Time.zone.parse(params[:week_start]).to_date : Time.zone.today.beginning_of_week
     @week_start = week_start_date(base_date, :monday)
     @week_end = week_end_date(base_date, :monday)
 
