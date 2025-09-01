@@ -7,7 +7,7 @@ image: spevack-us/repo-1/chore_tracker
 # Deploy to these servers.
 servers:
   web:
-    - 34.28.115.132
+    - 104.197.116.161
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -76,7 +76,7 @@ asset_path: /rails/public/assets
 # Configure the image builder.
 builder:
   arch: amd64
-  remote: ssh://jesse@34.28.115.132
+  remote: ssh://jesse@104.197.116.161
   cache:
     type: registry
 
